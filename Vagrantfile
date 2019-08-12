@@ -1,7 +1,15 @@
 VAGRANTFILE_API_VERSION = "2"
 cluster = {
-   "linux1"         => { :box => "centos/7", :ip_pri => "192.168.0.101", :ip_pub => "10.0.0.101", :cpus => 4, :mem => 4096,  :extdiskfile => '/gpfs/photonics/swissfel/res/dorigo_a/disk-lnx1.vdi', :dsize => 40},
-   "linux2"         => { :box => "centos/7", :ip_pri => "192.168.0.102", :ip_pub => "10.0.0.102", :cpus => 8, :mem => 8192,  :extdiskfile => '/gpfs/photonics/swissfel/res/dorigo_a/disk-lnx1.vdi', :dsize => 80}
+
+  "linux1" => { :box => "centos/7",
+                :ip_pri => "192.168.0.101",
+                :ip_pub => "10.0.0.101",
+                :cpus => 4,
+                :mem => 4096,
+                :d1 => './vbox/disk-lnx1-1.vdi', :dsize1 => 40,
+                :d2 => './vbox/disk-lnx1-2.vdi', :dsize2 => 60,
+                :d3 => './vbox/disk-lnx1-3.vdi', :dsize3 => 100,
+              }
 }
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -16,11 +24,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.vm.network :public_network, ip: "#{info[:ip_pub]}"
         override.vm.hostname = hostname
         vb.name = hostname
-	File.delete( info[:extdiskfile] ) if File.exist?( info[:extdiskfile] )
-	vb.customize ['createhd', '--filename', info[:extdiskfile], '--size', info[:dsize] * 1024]
+        if not File.exists?(info[:d1])
+          vb.customize ['createhd', '--filename', info[:d1],  '--size', info[:dsize1] * 1024]
+        end
+        if not File.exists?(info[:d2])
+          vb.customize ['createhd', '--filename', info[:d2],  '--size', info[:dsize2] * 1024]
+        end
         vb.customize ["modifyvm", :id, "--memory", info[:mem], "--cpus", info[:cpus], "--hwvirtex", "on"]
 	vb.customize ["storagectl", :id, "--name", "SATA Controller", "--add", "sata"]
-        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 0, '--device', 0, '--type', 'hdd', '--medium', info[:extdiskfile]]
+        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 0, '--device', 0, '--type', 'hdd', '--medium', info[:d1]]
+        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', info[:d2]]
         vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
       end # end cfg.vm.provider
       cfg.vm.box = "#{info[:box]}"
@@ -30,9 +43,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       cfg.ssh.forward_agent = true
       cfg.ssh.forward_x11 = true
       cfg.ssh.insert_key = false
-      cfg.vm.provision "shell", inline: 'sudo /vagrant/copy-init.sh'
-#      cfg.vm.provision "file", source: "cluster-init.sh", destination: "/root/cluster-init.sh"
-    end # end config
+#      cfg.vm.provision "shell", inline: 'sudo /vagrant/copy-init.sh'
+##      cfg.vm.provision "file", source: "cluster-init.sh", destination: "/root/cluster-init.sh"
+      #    end # end config
+      config.vm.provision "shell", inline: <<-SHELL
+        #sudo mkfs.ext4 /dev/sdb
+        #sudo mkfs.ext4 /dev/sdc
+        #sudo mkfs.ext4 /dev/sdd
+        yum -y update
+        yum -y install lvm2
+
+        SHELL
+    end
   end # end cluster loop
 
 end # end configure
