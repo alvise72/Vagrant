@@ -1,0 +1,15 @@
+########################################################################
+#
+# THIS FILE IS MANAGED BY PUPPET - DO NOT MODIFY!
+#
+# profile::yum_client
+# yum_repo.erb
+#
+########################################################################
+
+[gpfs_base]
+name = IBM Spectrum Scale base repository
+baseurl = https://linux.web.psi.ch/ext/gpfs/5.0.3-2/gpfs_rpms
+gpgcheck = 0
+enabled = 1
+priority = 50
