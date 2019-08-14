@@ -1,5 +1,6 @@
 #!/bin/bash
 yum -y install rsync
+yum -y update
 mkdir /root/.ssh/
 rsync -avz /vagrant/keys/$HOSTNAME/ /root/.ssh/
 cp /vagrant/keys/authorized_keys /root/.ssh/authorized_keys
