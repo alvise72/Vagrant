@@ -128,7 +128,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         #sudo mkfs.ext4 /dev/sdc
         #sudo mkfs.ext4 /dev/sdd
         yum -y update
-        yum -y install lvm2 gcc-c++ make cmake net-tools
+        yum -y install lvm2 gcc-c++ make cmake net-tools sysstat dstat git
 	cp /vagrant/repos/gpfs* /etc/yum.repos.d
 	yum clean all
 	yum install -y gpfs.msg.en_US gpfs.gskit gpfs.base gpfs.gpl gpfs.docs
