@@ -132,6 +132,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #      cfg.vm.provision "shell", inline: 'sudo /vagrant/copy-init.sh'
 ##      cfg.vm.provision "file", source: "cluster-init.sh", destination: "/root/cluster-init.sh"
       #    end # end config
+
       config.vm.provision "shell", path: "scripts/setup_ssh.sh"
 #      config.vm.provision "shell", inline: <<-SHELL
 #        #sudo mkfs.ext4 /dev/sdb
