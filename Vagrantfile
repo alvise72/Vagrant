@@ -6,8 +6,9 @@ VAGRANTFILE_API_VERSION = "2"
 require 'getoptlong'
 
 opts = GetoptLong.new(
-  [ '--storage-path', GetoptLong::OPTIONAL_ARGUMENT ]
-  [ '--memory', GetoptLong::OPTIONAL_ARGUMENT ]
+  [ '--storage-path', GetoptLong::OPTIONAL_ARGUMENT ],
+  [ '--memory', GetoptLong::OPTIONAL_ARGUMENT ],
+  [ '--cores', GetoptLong::OPTIONAL_ARGUMENT ]
 )
 
 storage='/Volumes/RD_Storage'
@@ -20,7 +21,7 @@ opts.each do |opt, arg|
       storage=arg
     when '--memory'
       memory=arg
-    when '--core'
+    when '--cores'
       cores=arg
   end
 end
