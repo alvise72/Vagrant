@@ -1,4 +1,4 @@
-yum -y install rsync
+yum -y install rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git
 yum -y update
 mkdir /root/.ssh/
 rsync -avz /vagrant/keys/$HOSTNAME/ /root/.ssh/
@@ -8,9 +8,9 @@ chown -R root:root /root/.ssh/
 chmod 700 /root/.ssh/
 chmod 0400 /root/.ssh/id_dsa
 
-yum -y install lvm2 gcc-c++ make cmake net-tools sysstat dstat git
-yum -y update
 /vagrant/SSI/Spectrum_Scale_Erasure_Code-5.0.3.2-x86_64-Linux-install --silent --text-only
+
+reboot
 #(
 #echo n # Add a new partition
 #echo p # Primary partition
