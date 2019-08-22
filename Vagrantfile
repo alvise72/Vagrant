@@ -7,14 +7,21 @@ require 'getoptlong'
 
 opts = GetoptLong.new(
   [ '--storage-path', GetoptLong::OPTIONAL_ARGUMENT ]
+  [ '--memory', GetoptLong::OPTIONAL_ARGUMENT ]
 )
 
 storage='/Volumes/RD_Storage'
+memory=14336
+cores=2
 
 opts.each do |opt, arg|
   case opt
     when '--storage-path'
       storage=arg
+    when '--memory'
+      memory=arg
+    when '--core'
+      cores=arg
   end
 end
 
@@ -23,8 +30,8 @@ cluster = {
   "linux1" => { :box => "centos/7",
                 :ip_pri => "192.168.1.101",
                 :ip_pub => "10.0.1.101",
-                :cpus => 2,
-                :mem => 14336,
+                :cpus => #{cores},
+                :mem => #{memory},
                 :d1 => "#{storage}/disk-lnx1-1.vdi", :dsize1 => 100,
                 :d2 => "#{storage}/disk-lnx1-2.vdi", :dsize2 => 100,
               } ,
