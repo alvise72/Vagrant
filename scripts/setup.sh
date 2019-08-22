@@ -10,7 +10,7 @@ chmod 0400 /root/.ssh/id_dsa
 
 yum -y install lvm2 gcc-c++ make cmake net-tools sysstat dstat git
 yum -y update
-
+/vagrant/SSI/Spectrum_Scale_Erasure_Code-5.0.3.2-x86_64-Linux-install --silent --text-only
 #(
 #echo n # Add a new partition
 #echo p # Primary partition
