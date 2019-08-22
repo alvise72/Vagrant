@@ -37,7 +37,7 @@ cluster = {
                 :ip_pub => "10.0.1.101",
                 :cpus => '#{cores}',
                 :mem => '#{memory}',
-                :d1 => '#{storage}/disk-lnx1-1.vdi', :dsize1 => '#{disksize}',
+                :d1 => '#{storage}/disk-lnx1-1.vdi', :dsize1 => '#{disksize}'
                 #:d2 => '#{storage}/disk-lnx1-2.vdi', :dsize2 => '#{disksize}',
               } ,
   "linux2" => { :box => "centos/7",
@@ -45,7 +45,7 @@ cluster = {
                 :ip_pub => "10.0.1.102",
                 :cpus => '#{cores}',
                 :mem => '#{memory}',
-                :d1 => '#{storage}/disk-lnx2-1.vdi', :dsize1 => '#{disksize}',
+                :d1 => '#{storage}/disk-lnx2-1.vdi', :dsize1 => '#{disksize}'
                 #:d2 => "#{storage}/disk-lnx2-2.vdi", :dsize2 => '#{disksize}',
               }	 ,    
   "linux3" => { :box => "centos/7",
@@ -53,7 +53,7 @@ cluster = {
                 :ip_pub => "10.0.1.103",
                 :cpus => '#{cores}',
                 :mem => '#{memory}',
-                :d1 => '#{storage}/disk-lnx3-1.vdi', :dsize1 => '#{disksize}',
+                :d1 => '#{storage}/disk-lnx3-1.vdi', :dsize1 => '#{disksize}'
                 #:d2 => '#{storage}/disk-lnx3-2.vdi', :dsize2 => '#{disksize}',
               }	 ,	       
   "linux4" => { :box => "centos/7",
@@ -61,7 +61,7 @@ cluster = {
                 :ip_pub => "10.0.1.104",
                 :cpus => '#{cores}',
                 :mem => '#{memory}',
-                :d1 => '#{storage}/disk-lnx4-1.vdi', :dsize1 => '#{disksize}',
+                :d1 => '#{storage}/disk-lnx4-1.vdi', :dsize1 => '#{disksize}'
                 #:d2 => '#{storage}/disk-lnx4-2.vdi', :dsize2 => '#{disksize}',
               }	 ,
   "linux5" => { :box => "centos/7",
@@ -69,7 +69,7 @@ cluster = {
                 :ip_pub => "10.0.1.105",
                 :cpus => '#{cores}',
                 :mem => '#{memory}',
-                :d1 => '#{storage}/disk-lnx5-1.vdi', :dsize1 => '#{disksize}',
+                :d1 => '#{storage}/disk-lnx5-1.vdi', :dsize1 => '#{disksize}'
                 #:d2 => '#{storage}/disk-lnx5-2.vdi', :dsize2 => '#{disksize}',
               }	 ,
   "linux6" => { :box => "centos/7",
@@ -77,7 +77,7 @@ cluster = {
                 :ip_pub => "10.0.1.106",
                 :cpus => '#{cores}',
                 :mem => '#{memory}',
-                :d1 => '#{storage}/disk-lnx6-1.vdi', :dsize1 => '#{disksize}',
+                :d1 => '#{storage}/disk-lnx6-1.vdi', :dsize1 => '#{disksize}'
                 #:d2 => '#{storage}/disk-lnx6-2.vdi', :dsize2 => '#{disksize}',
               }	 ,
   "linux7" => { :box => "centos/7",
@@ -85,7 +85,7 @@ cluster = {
                 :ip_pub => "10.0.1.107",
                 :cpus => '#{cores}',
                 :mem => '#{memory}',
-                :d1 => '#{storage}/disk-lnx7-1.vdi', :dsize1 => '#{disksize}',
+                :d1 => '#{storage}/disk-lnx7-1.vdi', :dsize1 => '#{disksize}'
                 #:d2 => '#{storage}/disk-lnx7-2.vdi', :dsize2 => '#{disksize}',
               }	 ,
   "linux8" => { :box => "centos/7",
@@ -93,7 +93,7 @@ cluster = {
                 :ip_pub => "10.0.r.108",
                 :cpus => '#{cores}',
                 :mem => '#{memory}',
-                :d1 => '#{storage}/disk-lnx8-1.vdi', :dsize1 => '#{disksize}',
+                :d1 => '#{storage}/disk-lnx8-1.vdi', :dsize1 => '#{disksize}'
                 #:d2 => '#{storage}/disk-lnx8-2.vdi', :dsize2 => '#{disksize}',
               }	 ,
   "linux9" => { :box => "centos/7",
@@ -101,7 +101,7 @@ cluster = {
                 :ip_pub => "10.0.1.109",
                 :cpus => '#{cores}',
                 :mem => '#{memory}',
-                :d1 => '#{storage}/disk-lnx9-1.vdi', :dsize1 => '#{disksize}',
+                :d1 => '#{storage}/disk-lnx9-1.vdi', :dsize1 => '#{disksize}'
                 #:d2 => '#{storage}/disk-lnx9-2.vdi', :dsize2 => '#{disksize}',
               }
 }
