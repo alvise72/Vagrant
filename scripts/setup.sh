@@ -10,7 +10,7 @@ chmod 0400 /root/.ssh/id_dsa
 
 yum -y install lvm2 gcc-c++ make cmake net-tools sysstat dstat git
 yum -y update
-
+shutdown -r now
 #(
 #echo n # Add a new partition
 #echo p # Primary partition
