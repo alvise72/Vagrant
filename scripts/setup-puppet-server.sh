@@ -2,9 +2,6 @@ rpm -Uvh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
 yum clean all
 yum repolist
 yum install -y puppet-server
-systemctl start puppetserver
-systemctl enable puppetserver
-#/opt/puppetlabs/bin/puppetserver ca setup
 
 yum -y install rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release
 yum -y update
@@ -50,37 +47,8 @@ certname = puppet
     localconfig = $vardir/localconfig
 EOF
 
-sudo -u puppet puppet master --no-daemonize --verbose
+sudo -u puppet puppet master --no-daemonize --verbose &
+systemctl enable puppetmaster
 #/vagrant/SSI/Spectrum_Scale_Erasure_Code-5.0.3.2-x86_64-Linux-install --silent --text-only
-
+sleep 20
 reboot
-#(
-#echo n # Add a new partition
-#echo p # Primary partition
-#echo 1 # Partition number
-#echo   # First sector (Accept default: 1)
-#echo   # Last sector (Accept default: varies)
-#echo t
-#echo 8e
-#echo wq # Write changes
-#) | sudo fdisk /dev/sdb
-
-#(
-#echo n # Add a new partition
-#echo p # Primary partition
-#echo 1 # Partition number
-#echo   # First sector (Accept default: 1)
-#echo   # Last sector (Accept default: varies)
-#echo t
-#echo 8e
-#echo wq # Write changes
-#) | sudo fdisk /dev/sdc
-
-#pvcreate /dev/sdb1
-#pvcreate /dev/sdc1
-#vgcreate raid1vg /dev/sdb1
-#vgextend raid1vg /dev/sdc1
-#sz=$(vgdisplay |grep "VG Size"|awk '{print $(NF-1)""$NF}')
-#lvcreate --type raid1 -l 100%FREE -n raid1 raid1vg
-#mkfs.ext4 /dev/raid1vg/raid1
-#mount /dev/raid1vg/raid1 /mnt
