@@ -46,7 +46,7 @@ cluster = {
                 :cpus => cores,
                 :mem => memory,
                 :d1 => "#{storage}/disk-lnx2-1.vdi", :dsize1 => disksize,
-                :provisioning_script => "scripts/setup-puppet-client.sh"
+                :provisioning_script => "scripts/setup-puppet-clientt.sh"
               }	 ,    
   "linux3" => { :box => "centos/7",
                 :ip_pri => "192.168.1.103",
@@ -126,13 +126,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
       end # end cfg.vm.provider
       cfg.vm.box = "#{info[:box]}"
+      
       cfg.ssh.forward_agent = true
       cfg.ssh.forward_x11 = true
       
 
     end
     config.ssh.keep_alive = true
-
     config.vm.provision "shell", path: "#{info[:provisioning_script]}"
   end # end cluster loop
 
