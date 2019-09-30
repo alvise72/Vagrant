@@ -19,8 +19,8 @@ echo 'export PATH=${PATH}:/opt/puppetlabs/bin' >> /home/vagrant/.bashrc
 
 cat << EOF > /etc/puppet/puppet.conf
 [main]
-dns_alt_names=puppet
-certname = puppet
+dns_alt_names=linux1
+certname = linux1
     # The Puppet log directory.
     # The default value is '$vardir/log'.
     logdir = /var/log/puppet
