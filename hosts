@@ -1,0 +1,19 @@
+10.0.1.101 linux1 
+10.0.1.102 linux2
+10.0.1.103 linux3
+10.0.1.104 linux4
+10.0.1.105 linux5
+10.0.1.106 linux6
+10.0.1.107 linux7
+10.0.1.108 linux8
+10.0.1.109 linux9
+
+192.168.1.101 linux1-adm
+192.168.1.102 linux2-adm
+192.168.1.103 linux3-adm
+192.168.1.104 linux4-adm
+192.168.1.105 linux5-adm
+192.168.1.106 linux6-adm
+192.168.1.107 linux7-adm
+192.168.1.108 linux8-adm
+192.168.1.109 linux9-adm
