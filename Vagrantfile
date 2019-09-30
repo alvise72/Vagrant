@@ -38,80 +38,71 @@ cluster = {
                 :cpus => cores,
                 :mem => memory,
                 :d1 => "#{storage}/disk-lnx1-1.vdi", :dsize1 => disksize,
-                :provisioning_script => 'scripts/setup-puppet-server.sh'
-                #:d2 => '#{storage}/disk-lnx1-2.vdi', :dsize2 => '#{disksize}',
+                :provisioning_script => "scripts/setup-puppet-server.sh"
               } ,
   "linux2" => { :box => "centos/7",
                 :ip_pri => "192.168.1.102",
                 :ip_pub => "10.0.1.102",
                 :cpus => cores,
                 :mem => memory,
-                :d1 => '#{storage}/disk-lnx2-1.vdi', :dsize1 => disksize,
-                :provisioning_script => 'scripts/setup-puppet-client.sh'
-                #:d2 => "#{storage}/disk-lnx2-2.vdi", :dsize2 => '#{disksize}',
+                :d1 => "#{storage}/disk-lnx2-1.vdi", :dsize1 => disksize,
+                :provisioning_script => "scripts/setup-puppet-client.sh"
               }	 ,    
   "linux3" => { :box => "centos/7",
                 :ip_pri => "192.168.1.103",
                 :ip_pub => "10.0.1.103",
                 :cpus => cores,
                 :mem => memory,
-                :d1 => '#{storage}/disk-lnx3-1.vdi', :dsize1 => disksize,
-                :provisioning_script => 'scripts/setup-puppet-client.sh'
-                #:d2 => '#{storage}/disk-lnx3-2.vdi', :dsize2 => '#{disksize}',
+                :d1 => "#{storage}/disk-lnx3-1.vdi", :dsize1 => disksize,
+                :provisioning_script => "scripts/setup-puppet-client.sh"
               }	 ,	       
   "linux4" => { :box => "centos/7",
                 :ip_pri => "192.168.1.104",
                 :ip_pub => "10.0.1.104",
                 :cpus => cores,
                 :mem => memory,
-                :d1 => '#{storage}/disk-lnx4-1.vdi', :dsize1 => disksize,
-                :provisioning_script => 'scripts/setup-puppet-client.sh'
-                #:d2 => '#{storage}/disk-lnx4-2.vdi', :dsize2 => '#{disksize}',
+                :d1 => "#{storage}/disk-lnx4-1.vdi", :dsize1 => disksize,
+                :provisioning_script => "scripts/setup-puppet-client.sh"
               }	 ,
   "linux5" => { :box => "centos/7",
                 :ip_pri => "192.168.1.105",
                 :ip_pub => "10.0.1.105",
                 :cpus => cores,
                 :mem => memory,
-                :d1 => '#{storage}/disk-lnx5-1.vdi', :dsize1 => disksize,
-                :provisioning_script => 'scripts/setup-puppet-client.sh'
-                #:d2 => '#{storage}/disk-lnx5-2.vdi', :dsize2 => '#{disksize}',
+                :d1 => "#{storage}/disk-lnx5-1.vdi", :dsize1 => disksize,
+                :provisioning_script => "scripts/setup-puppet-client.sh"
               }	 ,
   "linux6" => { :box => "centos/7",
                 :ip_pri => "192.168.1.106",
                 :ip_pub => "10.0.1.106",
                 :cpus => cores,
                 :mem => memory,
-                :d1 => '#{storage}/disk-lnx6-1.vdi', :dsize1 => disksize,
-                :provisioning_script => 'scripts/setup-puppet-client.sh'
-                #:d2 => '#{storage}/disk-lnx6-2.vdi', :dsize2 => '#{disksize}',
+                :d1 => "#{storage}/disk-lnx6-1.vdi", :dsize1 => disksize,
+                :provisioning_script => "scripts/setup-puppet-client.sh"
               }	 ,
   "linux7" => { :box => "centos/7",
                 :ip_pri => "192.168.1.107",
                 :ip_pub => "10.0.1.107",
                 :cpus => cores,
                 :mem => memory,
-                :d1 => '#{storage}/disk-lnx7-1.vdi', :dsize1 => disksize,
-                :provisioning_script => 'scripts/setup-puppet-client.sh'
-                #:d2 => '#{storage}/disk-lnx7-2.vdi', :dsize2 => '#{disksize}',
+                :d1 => "#{storage}/disk-lnx7-1.vdi", :dsize1 => disksize,
+                :provisioning_script => "scripts/setup-puppet-client.sh"
               }	 ,
   "linux8" => { :box => "centos/7",
                 :ip_pri => "192.168.1.108",
                 :ip_pub => "10.0.1.108",
                 :cpus => cores,
                 :mem => memory,
-                :d1 => '#{storage}/disk-lnx8-1.vdi', :dsize1 => disksize,
-                :provisioning_script => 'scripts/setup-puppet-client.sh'
-                #:d2 => '#{storage}/disk-lnx8-2.vdi', :dsize2 => '#{disksize}',
+                :d1 => "#{storage}/disk-lnx8-1.vdi", :dsize1 => disksize,
+                :provisioning_script => "scripts/setup-puppet-client.sh"
               }	 ,
   "linux9" => { :box => "centos/7",
                 :ip_pri => "192.168.1.109",
                 :ip_pub => "10.0.1.109",
                 :cpus => cores,
                 :mem => memory,
-                :d1 => '#{storage}/disk-lnx9-1.vdi', :dsize1 => disksize,
-                :provisioning_script => 'scripts/setup-puppet-client.sh'
-                #:d2 => '#{storage}/disk-lnx9-2.vdi', :dsize2 => '#{disksize}',
+                :d1 => "#{storage}/disk-lnx9-1.vdi", :dsize1 => disksize,
+                :provisioning_script => "scripts/setup-puppet-client.sh"
               }
 }
 
@@ -137,26 +128,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       cfg.vm.box = "#{info[:box]}"
       cfg.ssh.forward_agent = true
       cfg.ssh.forward_x11 = true
-      config.ssh.keep_alive = true
-#      cfg.vm.provision "shell", inline: 'sudo /vagrant/copy-init.sh'
-##      cfg.vm.provision "file", source: "cluster-init.sh", destination: "/root/cluster-init.sh"
-      #    end # end config
+      
 
-#      config.vm.provision "shell", path: "scripts/setup.sh"
-     config.vm.provision "shell", path: "#{info[:provisioning_script]}"
-#      config.vm.provision "shell", inline: <<-SHELL
-#        #sudo mkfs.ext4 /dev/sdb
-#        #sudo mkfs.ext4 /dev/sdc
-#        #sudo mkfs.ext4 /dev/sdd
-#        yum -y update
-#        yum -y install lvm2 gcc-c++ make cmake net-tools sysstat dstat
-#	#cp /vagrant/repos/gpfs* /etc/yum.repos.d
-#	#yum clean all
-#	#yum install -y gpfs.msg.en_US gpfs.gskit gpfs.base gpfs.gpl gpfs.docs
-#	
-# 
-#        SHELL
     end
+    config.ssh.keep_alive = true
+
+    config.vm.provision "shell", path: "#{info[:provisioning_script]}"
   end # end cluster loop
 
 end # end configure
