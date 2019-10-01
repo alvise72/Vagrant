@@ -131,6 +131,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       cfg.ssh.forward_agent = true
       cfg.ssh.forward_x11 = true
       cfg.ssh.keep_alive = true
+      cfg.ssh.forward_agent = true
+		  cfg.ssh.forward_x11 = true
 
     end
 #    config.ssh.keep_alive = true
