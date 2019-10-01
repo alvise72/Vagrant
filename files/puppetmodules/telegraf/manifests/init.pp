@@ -13,4 +13,12 @@ class telegraf {
     ensure => running,
     enable => true,
   }
+
+  ini_setting { "telegraf influx target":
+    ensure  => present,
+    path    => '/etc/telegraf/telegraf.conf',
+    section => '[outputs.influxdb]',
+    setting => 'urls',
+    value   => '["http://linux1-adm:8086"]',
+  }
 }
