@@ -13,12 +13,25 @@ class telegraf {
     ensure => running,
     enable => true,
   }
-
-  ini_setting { "telegraf influx target":
-    ensure  => present,
-    path    => '/etc/telegraf/telegraf.conf',
-    section => '[outputs.influxdb]',
-    setting => 'urls',
-    value   => '["http://linux1-adm:8086"]',
+  file { ["/etc/telegraf/telegraf.conf",
+          "/etc/telegraf/telegraf.d/cpu.conf",
+          "/etc/telegraf/telegraf.d/mem.conf",
+          "/etc/telegraf/telegraf.d/disk.conf",
+          "/etc/telegraf/telegraf.d/diskio.conf",
+          "/etc/telegraf/telegraf.d/system.conf",
+          "/etc/telegraf/telegraf.d/netstat.conf"]:
+        notify => Service["telegraf"],
+        mode => "0644",
+        owner => 'root',
+        group => 'root',
+        source => ['puppet:///modules/telegraf/telegraf.conf',
+                   'puppet:///modules/telegraf/cpu.conf',
+                   'puppet:///modules/telegraf/mem.conf',
+                   'puppet:///modules/telegraf/net.conf',
+                   'puppet:///modules/telegraf/disk.conf',
+                   'puppet:///modules/telegraf/diskio.conf',
+                   'puppet:///modules/telegraf/system.conf',
+                   'puppet:///modules/telegraf/netstat.conf'
+                  ],
   }
 }
