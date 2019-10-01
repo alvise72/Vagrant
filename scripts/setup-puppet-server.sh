@@ -33,6 +33,6 @@ systemctl enable puppetserver
 cp -r /vagrant/files/puppetmodules/* /etc/puppetlabs/code/environments/production/modules/
 cp /vagrant/files/puppetsite/site.pp /etc/puppetlabs/code/environments/production/manifests/site.pp
 
-puppet module install puppetlabs-inifile
+/opt/puppetlabs/bin/puppet module install puppetlabs-inifile
 
 reboot

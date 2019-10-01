@@ -1,8 +1,13 @@
 node default {
-#  class { 'mariadb': }
-#  class { 'gpfs_repo': }
-#  class { 'gpfsinstall': }
-#  class { 'influxdb': }
+}
+
+node 'linux1.home' {
+  class { 'influxdb': }
   class { 'telegraf': }
-#  class { 'grafana': }
- }
+  class { 'grafana': }
+}
+
+node 'linux2.home' {
+  class { 'telegraf': }
+}
+
