@@ -13,7 +13,7 @@ opts = GetoptLong.new(
 )
 
 storage='/Volumes/RD_Storage'
-memory=2038
+memory=2048
 cores=1
 disksize=20
 
