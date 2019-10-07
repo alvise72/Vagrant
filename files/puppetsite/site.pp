@@ -1,13 +1,10 @@
 node default {
 }
 
-node 'linux1.home' {
-  class { 'influxdb': }
-  class { 'telegraf': }
-  class { 'grafana': }
+node 'linux1.psi.ch' {
+  class { 'gpfs::installrepo': }
+  class { 'gpfs::installrpms': }
 }
 
 node 'linux2.home' {
-  class { 'telegraf': }
 }
-
