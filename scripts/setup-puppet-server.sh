@@ -30,8 +30,9 @@ sed -i 's+JAVA_ARGS=\"-Xms2g -Xmx2g+JAVA_ARGS=\"-Xms512m -Xmx512m+' /etc/sysconf
 systemctl start puppetserver
 systemctl enable puppetserver
 
-cp -r /vagrant/files/puppetmodules/* /etc/puppetlabs/code/environments/production/modules/
-cp /vagrant/files/puppetsite/site.pp /etc/puppetlabs/code/environments/production/manifests/site.pp
+cp -r /vagrant/files/puppetmodules/* /etc/puppetlabs/code/modules/
+cp -r /vagrant/files/puppetdata/* /etc/puppetlabs/code/environments/production/data/
+cp /vagrant/files/puppetsite/*.pp /etc/puppetlabs/code/environments/production/manifests/
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-inifile
 
