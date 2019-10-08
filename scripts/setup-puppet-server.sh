@@ -25,6 +25,8 @@ echo "sudo su -" >> /home/vagrant/.bashrc
 
 sed -i 's+JAVA_ARGS=\"-Xms2g -Xmx2g+JAVA_ARGS=\"-Xms512m -Xmx512m+' /etc/sysconfig/puppetserver
 
+echo "autosign = true" >> /etc/puppetlabs/puppet/puppet.conf
+
 /opt/puppetlabs/bin/puppetserver ca setup
 
 systemctl start puppetserver
