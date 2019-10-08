@@ -29,4 +29,4 @@ cp /vagrant/files/puppet-run.* /usr/lib/systemd/system
 systemctl start puppet-run.timer
 
 #reboot
-puppet agent -t
+/opt/puppetlabs/bin/puppet agent -t
