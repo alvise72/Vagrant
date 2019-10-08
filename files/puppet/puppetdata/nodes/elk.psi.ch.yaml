@@ -1,0 +1,10 @@
+gpfs::installrepo::version: 5.0.2-1
+
+lvm::volume_groups:
+  elk:
+    physical_volumes:
+      - /dev/sdb
+    logical_volumes:
+      elk:
+        size: 99G
+        fs_type: 'xfs'
