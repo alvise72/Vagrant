@@ -15,7 +15,7 @@ opts = GetoptLong.new(
 storage='/Volumes/RD_Storage'
 memory=2048
 cores=1
-disksize=20
+disksize=100
 
 opts.each do |opt, arg|
   case opt
