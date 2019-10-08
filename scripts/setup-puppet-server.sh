@@ -35,5 +35,5 @@ cp -r /vagrant/files/puppetdata/* /etc/puppetlabs/code/environments/production/d
 cp /vagrant/files/puppetsite/*.pp /etc/puppetlabs/code/environments/production/manifests/
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-inifile
-
+/opt/puppetlabs/bin/puppet module install puppetlabs-lvm
 reboot

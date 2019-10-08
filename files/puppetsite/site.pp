@@ -1,10 +1,22 @@
 node default {
-}
-
-node 'linux1.psi.ch' {
   class { 'gpfs::installrepo': }
   class { 'gpfs::installrpms': }
 }
 
-node 'linux2.home' {
+node 'linux1.psi.ch' {
 }
+
+node 'linux2.psi.ch' {
+include ::lvm
+}
+
+node 'linux3.psi.ch' {
+include ::lvm
+}
+node 'linux4.psi.ch' {
+include ::lvm
+}
+node 'linux5.psi.ch' {
+include ::lvm
+}
+

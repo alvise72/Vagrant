@@ -1,0 +1,11 @@
+[Unit]
+Description=puppet-run
+After=network-online.target
+Wants=network-online.target
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Type=simple
+ExecStart=/opt/puppetlabs/bin/puppet agent -t

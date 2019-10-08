@@ -1,0 +1,10 @@
+[Unit]
+Description=puppet-run
+
+[Install]
+WantedBy=default.target
+
+[Timer]
+Unit=puppet-run.service
+OnCalendar=*-*-* *:00:00
+Persistent=true
