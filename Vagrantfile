@@ -34,8 +34,8 @@ puppetservers = {
   "puppet" => { :box => "centos/7",
                 :ip_pri => "192.168.1.100",
                 :ip_pub => "10.0.1.100",
-                :cpus => cores,
-                :mem => memory,
+                :cpus => 1,
+                :mem => 1024,
                 :provisioning_script => "scripts/setup-puppet-server.sh"
               }
 }
@@ -44,8 +44,8 @@ elkservers = {
   "elk" => { :box => "centos/7",
                 :ip_pri => "192.168.1.101",
                 :ip_pub => "10.0.1.101",
-                :cpus => cores,
-                :mem => memory,
+                :cpus => 4,
+                :mem => 8192 
                 :d1 => "#{storage}/disk-elk-1.vdi",
                 :dsize1 => disksize,
                 :provisioning_script => "scripts/setup-puppet-client-elk.sh"
