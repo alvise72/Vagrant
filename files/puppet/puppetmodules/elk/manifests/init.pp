@@ -28,6 +28,22 @@ class elk::installrpms {
 }
 
 #
+# CONFIGURE PATHS
+#
+class elk::configurepaths (
+  String $baseelkdir = "/elk"
+)
+{
+  file { '/etc/elasticsearch/elasticsearch.yml':
+    ensure  => file,
+    owner  => 'root',
+    group  => 'elasticsearch',
+    mode   => '0660',
+    content => "path.data: $baseelkdir/lib\npath.logs: $baseelkdir/log",
+  }
+}
+
+#
 # start/enable services
 #
 class elk::startservices {
