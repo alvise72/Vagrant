@@ -37,8 +37,8 @@ cluster = {
                 :ip_pub => "10.0.1.100",
                 :cpus => cores,
                 :mem => memory,
-                :d1 => "#{storage}/disk-puppet-1.vdi",
-                :dsize1 => disksize,
+ 		:d1 => "#{storage}/disk-pup1-1.vdi",
+ 		:dsize1 => disksize,
                 :provisioning_script => "scripts/setup-puppet-server.sh"
               } ,
 
