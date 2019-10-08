@@ -31,7 +31,7 @@ opts.each do |opt, arg|
 end
 
 puppetservers = {
-  "puppet" => { :box => "generic/rhel7",
+  "puppet" => { :box => "centos/7",
                 :ip_pri => "192.168.1.100",
                 :ip_pub => "10.0.1.100",
                 :cpus => cores,
@@ -41,14 +41,14 @@ puppetservers = {
 }
 
 elkservers = {
-  "elk" => { :box => "generic/rhel7",
+  "elk" => { :box => "centos/7",
                 :ip_pri => "192.168.1.101",
                 :ip_pub => "10.0.1.101",
                 :cpus => cores,
                 :mem => memory,
                 :d1 => "#{storage}/disk-elk-1.vdi",
                 :dsize1 => disksize,
-                :provisioning_script => "scripts/setup-puppet-client.sh"
+                :provisioning_script => "scripts/setup-puppet-client-elk.sh"
             }
 }
 
@@ -159,6 +159,33 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.name = hostname
         vb.customize ["modifyvm", :id, "--memory", info[:mem], "--cpus", info[:cpus], "--hwvirtex", "on"]
 	vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+      end # end cfg.vm.provider
+      cfg.vm.box = "#{info[:box]}"
+      cfg.vm.provision "shell", path: "#{info[:provisioning_script]}"
+      cfg.ssh.forward_agent = true
+      cfg.ssh.forward_x11 = true
+      cfg.ssh.keep_alive = true
+      cfg.ssh.forward_agent = true
+      cfg.ssh.forward_x11 = true
+    end
+  end # end cluster loop
+
+  elkservers.each_with_index do |(hostname, info), index|
+    config.vm.synced_folder "./", "/vagrant", disabled: false
+    config.vm.define hostname do |cfg|
+      cfg.vm.provider :virtualbox do |vb, override|
+        config.vm.box = hostname
+        override.vm.network :private_network, ip: "#{info[:ip_pri]}"
+        override.vm.network :public_network, ip: "#{info[:ip_pub]}"
+        override.vm.hostname = hostname
+        vb.name = hostname
+        if not File.exists?(info[:d1])
+          vb.customize ['createhd', '--filename', info[:d1],  '--size', info[:dsize1] * 1024]
+        end
+        vb.customize ["modifyvm", :id, "--memory", info[:mem], "--cpus", info[:cpus], "--hwvirtex", "on"]
+        vb.customize ["storagectl", :id, "--name", "SATA Controller", "--add", "sata"]
+        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 0, '--device', 0, '--type', 'hdd', '--medium', info[:d1]]
+        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
       end # end cfg.vm.provider
       cfg.vm.box = "#{info[:box]}"
       cfg.vm.provision "shell", path: "#{info[:provisioning_script]}"
