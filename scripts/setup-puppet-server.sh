@@ -32,9 +32,9 @@ echo "autosign = true" >> /etc/puppetlabs/puppet/puppet.conf
 systemctl start puppetserver
 systemctl enable puppetserver
 
-cp -r /vagrant/files/puppetmodules/* /etc/puppetlabs/code/modules/
-cp -r /vagrant/files/puppetdata/* /etc/puppetlabs/code/environments/production/data/
-cp /vagrant/files/puppetsite/*.pp /etc/puppetlabs/code/environments/production/manifests/
+cp -r /vagrant/files/puppet/puppetmodules/* /etc/puppetlabs/code/modules/
+cp -r /vagrant/files/puppet/puppetdata/* /etc/puppetlabs/code/environments/production/data/
+cp /vagrant/files/puppet/puppetsite/*.pp /etc/puppetlabs/code/environments/production/manifests/
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-inifile
 /opt/puppetlabs/bin/puppet module install puppetlabs-lvm
