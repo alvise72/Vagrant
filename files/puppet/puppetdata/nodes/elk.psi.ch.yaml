@@ -1,6 +1,6 @@
 gpfs::installrepo::version: 5.0.2-1
 
-elkdirname = 'elk'
+elkdirname: 'elk'
 
 elk::configurepaths::baseelkdir: "/${elk}/elasticsearch"
 elk::createpaths::baseelkdir: ${elk::createpaths::baseelkdir}
