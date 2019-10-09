@@ -41,13 +41,33 @@ class elk::configurepaths (
     mode   => '0660',
     content => "path.data: $baseelkdir/lib\npath.logs: $baseelkdir/log",
   }
-  file { 'Elk lib dir':
+}
+
+#
+#
+#
+class elk::createpaths (
+  String $baseelkdir = "/elk"
+)
+{
+  exec { "Create ${baseelkdir}":
+    creates => $baseelkdir,
+    command => "mkdir -p ${baseelkdir}",
+    path => $::path
+  } -> file { $baseelkdir : }
+  file { "${baseelkdir}/lib":
     ensure => directory,
-    path => "$baseelkdir/lib",
+    owner => 'root',
+    group => 'elasticsearch',
+    mode => '770',
+    recurse =>true,
   }
-  file { 'Elk log dir':
+  file { "${baseelkdir}/log":
     ensure => directory,
-    path => "$baseelkdir/log",
+    owner => 'root',
+    group => 'elasticsearch',
+    mode => '770',
+    recurse =>true,
   }
 }
 
