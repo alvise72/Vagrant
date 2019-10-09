@@ -2,14 +2,14 @@ gpfs::installrepo::version: 5.0.2-1
 
 elkdirname: 'elk'
 
-elk::configurepaths::baseelkdir: "/${elk}/elasticsearch"
-elk::createpaths::baseelkdir: ${elk::createpaths::baseelkdir}
+elk::configurepaths::baseelkdir: "/%{hiera('elkdirname')}/elasticsearch"
+elk::createpaths::baseelkdir: "%{hiera('elk::configurepaths::baseelkdir')}"
 
 lvm::volume_groups:
-  ${elk}:
+  "%{hiera('elkdirname')}":
     physical_volumes:
       - /dev/sdb
     logical_volumes:
-      ${elk}:
+      "%{hiera('elkdirname')}":
         size: 99G
         fs_type: 'xfs'

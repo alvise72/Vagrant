@@ -20,9 +20,11 @@ class elk::installrepo (
 class elk::installrpms {
   package { 'elasticsearch':
      ensure => present,
+#     require => Yumrepo['elk'],
   }
   package { 'kibana':
      ensure => present,
+#     require => Package['elasticsearch'],
   }
 
 }
@@ -40,7 +42,18 @@ class elk::configurepaths (
     group  => 'elasticsearch',
     mode   => '0660',
     content => "path.data: $baseelkdir/lib\npath.logs: $baseelkdir/log",
+#    require => Package['elasticsearch'],
   }
+}
+
+#
+# CREATE LVM and MOUNTPOINT
+#
+class elk::lvm (
+  String $baseelkdir = "/elk"
+)
+{
+  include ::lvm
 }
 
 #
@@ -50,19 +63,12 @@ class elk::createpaths (
   String $baseelkdir = "/elk"
 )
 {
+#  require => Class['elk::createpaths'],
   exec { "Create ${baseelkdir}":
     creates => $baseelkdir,
     command => "mkdir -p ${baseelkdir}",
     path => $::path
-  } -> file { $baseelkdir : }
-  file { "${baseelkdir}/lib":
-    ensure => directory,
-    owner => 'root',
-    group => 'elasticsearch',
-    mode => '770',
-    recurse =>true,
-  }
-  file { "${baseelkdir}/log":
+  } -> file { $baseelkdir :
     ensure => directory,
     owner => 'root',
     group => 'elasticsearch',
