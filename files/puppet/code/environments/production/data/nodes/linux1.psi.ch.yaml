@@ -1,5 +1,1 @@
 gpfs::installrepo::version: 5.0.2-1
-
-node linux1.psi.ch {
-  class { 'metricbeat': }
-}
