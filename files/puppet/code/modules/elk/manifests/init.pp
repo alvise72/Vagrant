@@ -107,7 +107,7 @@ class elk::install (
     owner => 'root',
     group => 'elasticsearch',
     mode => '770',
-    recurse =>true,
+#    #recurse =>true,
   }
 
 
