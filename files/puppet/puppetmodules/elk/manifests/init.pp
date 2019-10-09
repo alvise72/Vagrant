@@ -41,6 +41,14 @@ class elk::configurepaths (
     mode   => '0660',
     content => "path.data: $baseelkdir/lib\npath.logs: $baseelkdir/log",
   }
+  file { 'Elk lib dir':
+    ensure => directory,
+    path => "$baseelkdir/lib",
+  }
+  file { 'Elk log dir':
+    ensure => directory,
+    path => "$baseelkdir/log",
+  }
 }
 
 #
