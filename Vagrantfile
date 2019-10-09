@@ -1,7 +1,4 @@
-﻿# VBoxManage list hdds
-# fastest way is to change the path of attached disk
-
-VAGRANTFILE_API_VERSION = "2"
+﻿VAGRANTFILE_API_VERSION = "2"
 
 require 'getoptlong'
 
