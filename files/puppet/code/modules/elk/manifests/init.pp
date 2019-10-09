@@ -13,7 +13,7 @@ class elk::install (
   }
 
 
-#-------------------------------------------------------------  
+#-------------------------------------------------------------
 
 
   package { 'elasticsearch':
@@ -38,30 +38,71 @@ class elk::install (
     content => "path.data: /${elkdirname}/elasticsearch/lib\npath.logs: /${elkdirname}/elasticsearch/log",
     require => Package['elasticsearch'],
   }
- 
+
 
 #-------------------------------------------------------------
 
- 
-  lvm::volume { "${elkdirname}":
+
+  physical_volume { '/dev/sdb':
     ensure => present,
-    vg     => "${elkdirname}",
-    pv     => '/dev/sdb',
-    fstype => 'xfs',
-    size   => '99G',
+    before => Volume_group["vg_${elkdirname}"],
+  }
+
+  volume_group { "vg_${elkdirname}":
+    ensure           => present,
+    physical_volumes => '/dev/sdb',
+    before           => Logical_volume["lv_${elkdirname}"],
+  }
+
+  logical_volume { "lv_${elkdirname}":
+    ensure       => present,
+    volume_group => "vg_${elkdirname}",
+    size         => '99G',
+    before       => Filesystem["/dev/vg_${elkdirname}/lv_${elkdirname}"],
+  }
+
+  filesystem { "/dev/vg_${elkdirname}/lv_${elkdirname}":
+    ensure  => present,
+    fs_type => 'xfs',
     before => Exec['createdir'],
   }
 
+  file { "/${elkdirname}":
+    ensure => directory,
+    owner  => 'root',
+    group  => 'elasticsearch',
+    mode   => '770',
+    before => Mount["/${elkdirname}"],
+  }
 
-#-------------------------------------------------------------  
+  mount { "/${elkdirname}":
+    ensure  => mounted,
+    atboot  => true,
+    device  => "/dev/vg_${elkdirname}/lv_${elkdirname}",
+    fstype  => 'xfs',
+    before  => Exec['createdir'],
+    require => File["/${elkdirname}"],
+  }
+
+#  lvm::volume { "${elkdirname}":
+#    ensure => present,
+#    vg     => "${elkdirname}",
+#    pv     => '/dev/sdb',
+#    fstype => 'xfs',
+#    size   => '99G',
+#    before => Exec['createdir'],
+#  }
+
+
+#-------------------------------------------------------------
 
   exec { 'createdir':
     creates => "/$elkdirname",
     command => "mkdir -p /${elkdirname}/elasticsearch",
-    path => $::path,
-    before => Service['elasticsearch'],
-    require => Package['elasticsearch'],
-  } -> file { "/${elkdirname}/elasticsearch": 
+    path    => $::path,
+    before  => Service['elasticsearch'],
+    require => [ Mount["/${elkdirname}"], Package['elasticsearch'] ],
+  } -> file { "/${elkdirname}/elasticsearch":
     ensure => directory,
     owner => 'root',
     group => 'elasticsearch',
