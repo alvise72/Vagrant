@@ -25,7 +25,7 @@ echo "sudo su -" >> /home/vagrant/.bashrc
 
 echo "server = puppet" >> /etc/puppetlabs/puppet/puppet.conf
 
-cp /vagrant/files/puppet-run.* /usr/lib/systemd/system
+cp /vagrant/files/puppet/puppet-run.* /usr/lib/systemd/system
 systemctl start puppet-run.timer
 
 #reboot
