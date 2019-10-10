@@ -6,6 +6,7 @@ setup.template.settings:
   index.number_of_shards: 1
   index.codec: best_compression
 setup.kibana:
+  host: "<%= @elkhost %>:5601"
 output.elasticsearch:
   hosts: ["<%= @elkhost %>:<%= @elkport %>"]
 processors:
