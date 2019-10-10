@@ -1,3 +1,4 @@
+<% if @elkhost -%>
 metricbeat.config.modules:
   path: ${path.config}/modules.d/*.yml
   reload.enabled: false
@@ -6,7 +7,7 @@ setup.template.settings:
   index.codec: best_compression
 setup.kibana:
 output.elasticsearch:
-  hosts: ["ELKHOST:ELKPORT"]
+  hosts: ["<%= @elkhost %>:<%= @elkport %>"]
 processors:
   - add_host_metadata: ~
   - add_cloud_metadata: ~
