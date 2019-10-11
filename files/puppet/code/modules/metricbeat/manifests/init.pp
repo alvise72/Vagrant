@@ -2,6 +2,8 @@ class metricbeat::install (
         String $version = "7.x",
         String $elkhost = "elk.psi.ch",
         String $elkport = "9200",
+        String $kibanahost = "elk.psi.ch",
+        String $kibanaport = "5601",
 )
 {
   yumrepo { "elk":
@@ -26,8 +28,10 @@ class metricbeat::install (
 #-------------------------------------------------------------
 
   file { '/etc/metricbeat/metricbeat.yml':
-    ensure  => file,
-    content => template('conf/metricbeat.yml.erb'),
+    ensure   => file,
+    content  => template('metricbeat/metricbeat.yml.erb'),
+    required => Package['metricbeat'],
+    notify   => Service['metricbeat']
   }
 
 
@@ -35,8 +39,8 @@ class metricbeat::install (
 
 
   service { "metricbeat":
-    ensure => running,
-    enable => true,
+    ensure  => running,
+    enable  => true,
     require => File['/etc/metricbeat/metricbeat.yml'],
   }
 }

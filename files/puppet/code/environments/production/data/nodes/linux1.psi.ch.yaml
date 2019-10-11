@@ -3,6 +3,6 @@ gpfs::installrepo::version: 5.0.2-1
 metricbeat::install::elkhost: 'elk.psi.ch'
 metricbeat::install::elkport: '9200'
 metricbeat::install::kibanahost: 'elk.psi.ch'
-metricbeat::install::kibanaport" '5601'
+metricbeat::install::kibanaport": '5601'
 metricbeat::install::conf_global_timeseries_enabled: true
 
