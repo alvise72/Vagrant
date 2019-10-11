@@ -1,7 +1,7 @@
 node default {
 }
 
-node 'elk.psi.ch' {
+node 'elk00.psi.ch' {
   class { 'elk::install': }
 }
 

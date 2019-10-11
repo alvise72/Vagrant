@@ -1,8 +1,8 @@
 class metricbeat::install (
         String $version = "7.x",
-        String $elkhost = "elk.psi.ch",
+        String $elkhost = "elk00.psi.ch",
         String $elkport = "9200",
-        String $kibanahost = "elk.psi.ch",
+        String $kibanahost = "elk00.psi.ch",
         String $kibanaport = "5601",
 )
 {
@@ -43,4 +43,14 @@ class metricbeat::install (
     enable  => true,
     require => File['/etc/metricbeat/metricbeat.yml'],
   }
+
+
+#-------------------------------------------------------------
+
+
+  exec { 'setupdashboard':
+    command => "/bin/metricbeat setup dashboard",
+    require => Service['metricbeat'],
+  }
+
 }

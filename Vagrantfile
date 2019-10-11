@@ -38,7 +38,7 @@ puppetservers = {
 }
 
 elkservers = {
-  "elk" => { :box => "centos/7",
+  "elk00" => { :box => "centos/7",
                 :ip_pri => "192.168.1.101",
                 :ip_pub => "10.0.1.101",
                 :cpus => 4,
