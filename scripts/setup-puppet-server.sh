@@ -1,7 +1,7 @@
 rpm -Uvh https://yum.puppet.com/puppet6-release-el-7.noarch.rpm
 yum clean all
 yum repolist
-yum install -y puppetserver rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release nedit ntp ntpdate telnet mlocate
+yum install -y puppetserver rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release nedit ntp ntpdate telnet mlocate lsof bind-utils
 
 systemctl disable firewalld
 ntpdate 0.centos.pool.ntp.org

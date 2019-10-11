@@ -1,7 +1,7 @@
 node default {
 }
 
-node 'elk00.psi.ch' {
+node 'elastic.psi.ch' {
   class { 'elk::install': }
 }
 

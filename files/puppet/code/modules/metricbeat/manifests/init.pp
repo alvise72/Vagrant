@@ -1,8 +1,8 @@
 class metricbeat::install (
         String $version = "7.x",
-        String $elkhost = "elk00.psi.ch",
+        String $elkhost = "elastic.psi.ch",
         String $elkport = "9200",
-        String $kibanahost = "elk00.psi.ch",
+        String $kibanahost = "elastic.psi.ch",
         String $kibanaport = "5601",
 )
 {
