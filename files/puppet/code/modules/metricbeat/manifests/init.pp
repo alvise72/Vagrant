@@ -30,7 +30,7 @@ class metricbeat::install (
   file { '/etc/metricbeat/metricbeat.yml':
     ensure   => file,
     content  => template('metricbeat/metricbeat.yml.erb'),
-    required => Package['metricbeat'],
+    require => Package['metricbeat'],
     notify   => Service['metricbeat']
   }
 
