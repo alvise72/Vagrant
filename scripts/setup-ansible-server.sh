@@ -1,8 +1,8 @@
 yum install -y epel-release rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release chrony telnet mlocate lsof bind-utils
 
 systemctl disable firewalld
-systemctl start ntpd
-systemctl enable ntpd
+systemctl start chronyd
+systemctl enable chronyd
 
 sed -i 's+^SELINUX=.*+SELINUX=disabled+' /etc/selinux/config
 
@@ -17,6 +17,8 @@ cat ~vagrant/.ssh/id_rsa.pub >> ~vagrant/.ssh/authorized_keys
 chown -R root:root /root/.ssh/
 chmod 700 /root/.ssh/
 chmod 0400 /root/.ssh/id_dsa
+
+chown -R vagrant:vagrant /home/vagrant
 
 cat /vagrant/hosts >> /etc/hosts
 

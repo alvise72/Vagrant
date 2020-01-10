@@ -1,8 +1,8 @@
 yum install -y epel-release rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release chrony telnet mlocate lsof bind-utils
 
 systemctl disable firewalld
-systemctl start ntpd
-systemctl enable ntpd
+systemctl start chronyd
+systemctl enable chronyd
 
 sed -i 's+^SELINUX=.*+SELINUX=disabled+' /etc/selinux/config
 
