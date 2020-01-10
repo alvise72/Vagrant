@@ -1,7 +1,6 @@
 yum install -y epel-release rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release chrony telnet mlocate lsof bind-utils
 
 systemctl disable firewalld
-ntpdate 0.centos.pool.ntp.org
 systemctl start ntpd
 systemctl enable ntpd
 
