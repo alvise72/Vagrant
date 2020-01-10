@@ -1,14 +1,14 @@
 rpm -Uvh https://yum.puppet.com/puppet6-release-el-7.noarch.rpm
 yum clean all
 yum repolist
-yum install -y puppetserver rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release nedit ntp ntpdate telnet mlocate lsof bind-utils
+yum install -y puppetserver rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release nedit ntp ntpdate telnet mlocate lsof bind-utils httpd policycoreutils-python gdisk
 
 systemctl disable firewalld
 ntpdate 0.centos.pool.ntp.org
 systemctl start ntpd
 systemctl enable ntpd
 
-sed -i 's+^SELINUX=.*+SELINUX=disabled+' /etc/selinux/config
+#sed -i 's+^SELINUX=.*+SELINUX=disabled+' /etc/selinux/config
 
 yum -y update
 mkdir /root/.ssh/
