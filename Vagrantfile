@@ -44,7 +44,7 @@ ansibleservers = {
                  :cpus => 1,
                  :mem => 1024,
                  :provisioning_script => "scripts/setup-ansible-server.sh"
-               }
+               },
   "managed" => { :box => "centos/8",
                  :ip_pri => "192.168.1.11",
                  :ip_pub => "10.0.1.11",
@@ -163,7 +163,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end # end cluster loop
 
-  puppetservers.each_with_index do |(hostname, info), index|
+  ansibleservers.each_with_index do |(hostname, info), index|
     config.vm.synced_folder "./", "/vagrant", disabled: false
     config.vm.define hostname do |cfg|
       cfg.vm.provider :virtualbox do |vb, override|
@@ -174,6 +174,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.name = hostname
         vb.customize ["modifyvm", :id, "--memory", info[:mem], "--cpus", info[:cpus], "--hwvirtex", "on"]
 	vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+      end # end cfg.vm.provider
+      cfg.vm.box = "#{info[:box]}"
+      cfg.vm.provision "shell", path: "#{info[:provisioning_script]}"
+      cfg.ssh.forward_agent = true
+      cfg.ssh.forward_x11 = true
+      cfg.ssh.keep_alive = true
+      cfg.ssh.forward_agent = true
+      cfg.ssh.forward_x11 = true
+    end
+  end # end cluster loop
+
+  puppetservers.each_with_index do |(hostname, info), index|
+    config.vm.synced_folder "./", "/vagrant", disabled: false
+    config.vm.define hostname do |cfg|
+      cfg.vm.provider :virtualbox do |vb, override|
+        config.vm.box = hostname
+        override.vm.network :private_network, ip: "#{info[:ip_pri]}"
+        override.vm.network :public_network, ip: "#{info[:ip_pub]}"
+        override.vm.hostname = hostname
+        vb.name = hostname
+        vb.customize ["modifyvm", :id, "--memory", info[:mem], "--cpus", info[:cpus], "--hwvirtex", "on"]
+        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
       end # end cfg.vm.provider
       cfg.vm.box = "#{info[:box]}"
       cfg.vm.provision "shell", path: "#{info[:provisioning_script]}"
