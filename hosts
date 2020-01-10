@@ -9,6 +9,9 @@
 10.0.1.108 linux7
 10.0.1.109 linux8
 
+10.0.1.10 control
+10.0.1.11 managed
+
 192.168.1.100 puppet-adm
 192.168.1.101 elastic-adm
 192.168.1.102 linux1-adm
@@ -19,3 +22,6 @@
 192.168.1.107 linux6-adm
 192.168.1.108 linux7-adm
 192.168.1.109 linux8-adm
+
+192.168.1.10 control-adm
+192.168.1.11 managed-adm

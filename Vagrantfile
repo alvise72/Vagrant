@@ -37,6 +37,24 @@ puppetservers = {
               }
 }
 
+ansibleservers = {
+  "control" => { :box => "centos/8",
+                 :ip_pri => "192.168.1.10",
+                 :ip_pub => "10.0.1.10",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-ansible-server.sh"
+               }
+  "managed" => { :box => "centos/8",
+                 :ip_pri => "192.168.1.11",
+                 :ip_pub => "10.0.1.11",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server.sh"
+               }
+}
+
+
 elkservers = {
   "elastic" => { :box => "centos/7",
                 :ip_pri => "192.168.1.101",
