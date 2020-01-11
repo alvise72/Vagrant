@@ -9,7 +9,7 @@ opts = GetoptLong.new(
   [ '--disk-size', GetoptLong::OPTIONAL_ARGUMENT ]
 )
 
-storage='/Volumes/RD_Storage'
+storage='/Volumes/Home/Virtual Machines.localized'
 memory=2048
 cores=1
 disksize=100

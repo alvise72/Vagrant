@@ -15,7 +15,7 @@ cp /vagrant/keys/vagrant_user/id_rsa* ~vagrant/.ssh/
 chmod 0400 ~vagrant/.ssh/id_rsa
 cat ~vagrant/.ssh/id_rsa.pub >> ~vagrant/.ssh/authorized_keys
 touch ~vagrant/.ssh/config
-echo "StrictHostKeyChecking no" >>  ~vagrant/.ssh/config
+#echo "StrictHostKeyChecking no" >>  ~vagrant/.ssh/config
 chown -R root:root /root/.ssh/
 chmod 700 /root/.ssh/
 chmod 0400 /root/.ssh/id_dsa
@@ -23,6 +23,8 @@ chmod 0400 /root/.ssh/id_dsa
 chown -R vagrant:vagrant /home/vagrant
 
 cat /vagrant/hosts >> /etc/hosts
+
+cp /vagrant/files/control/etc/ssh/ssh_config.d/nohostcheck.conf /etc/ssh/ssh_config.d/nohostcheck.conf
 
 yum -y install ansible
 
