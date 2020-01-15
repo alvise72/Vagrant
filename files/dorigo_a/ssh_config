@@ -1,0 +1,413 @@
+ControlMaster auto
+ControlPersist 8h
+ControlPath ~/.ssh/tmp/%h:%p:%r
+StrictHostKeyChecking no
+ForwardX11 yes
+ForwardX11Trusted yes
+Compression yes
+
+####################################################################
+#
+# Proxies and gateways
+#
+####################################################################
+Host hop
+     Hostname hop.psi.ch
+     User dorigo_a
+     ControlMaster auto
+     ControlPersist 8h
+     ControlPath ~/.ssh/tmp/%h:%p:%r
+
+Host llc-e
+     ControlMaster auto
+     ControlPersist 8h
+     ControlPath ~/.ssh/tmp/%h:%p:%r
+     HostName llc.psi.ch
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@hop.psi.ch
+     User dorigo_a
+
+Host sfelgw
+     Hostname xblcn-gw-02.psi.ch
+     User dorigo_a
+     ControlMaster auto
+     ControlPersist 8h
+     ControlPath ~/.ssh/tmp/%h:%p:%r
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@llc-e
+
+Host sf-cn-e
+     Hostname sf-cn-1.psi.ch
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@sfelgw
+
+Host w
+     ControlMaster auto
+     ControlPersist 8h
+     ControlPath ~/.ssh/tmp/%h:%p:%r
+     HostName wmgt01.psi.ch
+     User dorigo_a
+
+Host xbl
+     ControlMaster auto
+     ControlPersist 8h
+     ControlPath ~/.ssh/tmp/%h:%p:%r
+     HostName xblcn-gw-02.psi.ch
+     User dorigo_a
+
+Host g
+     ControlMaster auto
+     ControlPersist 8h
+     ControlPath ~/.ssh/tmp/%h:%p:%r
+     HostName gmgt.psi.ch
+     User dorigo_a
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+	
+####################################################################
+#
+# HP Blades
+#
+####################################################################
+Host sf-cn-*.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@xbl
+
+Host 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+     HostName sf-cn-%h.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@xbl
+
+Host rmsf-*
+     User admin
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@g
+
+Host rmx*-cn-*
+     User admin
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@g
+
+###################################################################
+#
+# VM Services
+#
+###################################################################
+Host sfslurm
+     HostName sf-slurmsrv.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@xbl
+
+Host sf-slurmsrv.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@xbl
+
+Host sfmgt
+     HostName sf-mgt.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+Host sfcfgmgr
+     HostName sf-confmgr.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sf-confmgr.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w 
+
+Host sf-logserver
+     HostName sf-logserver.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+      
+###################################################################
+#
+# SiwssFEL LENOVO GPFS CLUSTER
+#
+###################################################################
+Host len1
+     HostName sf-dss-1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+     
+Host sf-dss-1
+     HostName sf-dss-1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sf-dss-1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+     
+Host lenio1
+     HostName sf-dssio-1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+     
+Host lenio2
+     HostName sf-dssio-2.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+     
+Host sf-dssio-1
+     HostName sf-dssio-1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sf-dssio-1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sf-dssio-2
+     HostName sf-dssio-2.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sf-dssio-2.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+###################################################################
+#
+# SwissFEL EXPORT SERVERS (NFS + AFM Gateway) for LENOVO
+#
+###################################################################
+Host sf-export-*
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+     
+Host sfexp1
+     HostName sf-export-1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sfexp2
+     User root
+     HostName sf-export-2.psi.ch
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sfexp3
+     User root
+     HostName sf-export-3.psi.ch
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sfexp4
+     User root
+     HostName sf-export-4.psi.ch
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+###################################################################
+#
+# SwissFEL GL2 GPFS CLUSTER
+#
+###################################################################
+Host gl2
+     HostName sf-ems1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host gl2io1
+     HostName sf-gssio1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host gl2io2
+     HostName sf-gssio2.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host hmc
+     HostName sf-hmc1.psi.ch
+     User hscroot
+     ProxyCommand ssh -XY -W %h:%p root@gl2
+
+###################################################################
+#
+# SwissFEL DAQ SERVERS
+#
+###################################################################
+Host sf-daq-1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sfdaq1
+     Hostname sf-daq-1.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sfdaq2
+     Hostname sf-daq-2.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sfdaq3
+     Hostname sf-daq-3.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sfdaq4
+     Hostname sf-daq-4.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sfdaq5
+     Hostname sf-daq-5.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p root@gl2
+
+Host sfdaq6
+     Hostname sf-daq-6.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p root@gl2
+
+Host sfdaq7
+     Hostname sf-daq-7.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host sfdaq8
+     Hostname sf-daq-8.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+###################################################################
+#
+# ICINGA SERVER and AGENT
+#
+###################################################################
+Host icingamon
+     Hostname emonma00.psi.ch
+     User dorigo_a
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host monagsfel
+     Hostname monagsfel.psi.ch
+     User dorigo_a
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host workstation
+     HostName pc11748.psi.ch
+
+###################################################################
+#
+# RA's Lenovo
+#
+###################################################################
+Host lenras1
+     HostName ras-e-002.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host gl2ras
+     HostName ras-e-001.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host hmcras
+     HostName ras-h-001.psi.ch
+     User hscroot
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+###################################################################
+#
+# OTHER NODES
+#
+###################################################################
+Host puppet
+     HostName puppet00.psi.ch
+     User dorigo_a
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host srvtest
+     HostName sf-srvtest-01.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+     
+###################################################################
+#
+# SLS nodes
+#
+###################################################################
+
+Host slslog
+     HostName sls-logserver-01.psi.ch
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+# Apollo (X10SA/SLS) Blades
+Host x10sa-cn-*
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+     ForwardX11 yes
+     ForwardX11Trusted yes
+#     IdentityFile ~/.ssh/id_rsa_nopass
+
+# MX nodes
+Host x06sa-cn-*
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+     ForwardX11 yes
+     ForwardX11Trusted yes
+#     IdentityFile ~/.ssh/id_rsa_nopass
+
+Host x06da-cn-*
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+     ForwardX11 yes
+     ForwardX11Trusted yes
+#     IdentityFile ~/.ssh/id_rsa_nopass
+
+Host rmx10sa-cn-1*
+     User admin
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@g
+
+# MX nodes
+Host mx-cn-*
+     HostName %h
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host xbl-*
+     HostName %h
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+
+Host x12sa-*
+     Hostname %h
+     User dorigo_a
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+#     IdentityFile ~/.ssh/id_rsa_nopass
+
+Host x02da-cn-*
+     Hostname %h
+     User root
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+#     IdentityFile ~/.ssh/id_rsa_nopass
+
+Host saresa-cons-*
+     Hostname %h
+     user dorigo_a
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@saresa-gw
+#     IdentityFile ~/.ssh/id_rsa_nopass
+
+Host saresb-cons-*
+     Hostname %h
+     user dorigo_a
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@saresb-gw
+#     IdentityFile ~/.ssh/id_rsa_nopass
+
+Host slslogserver
+     Hostname sls-logserver-01
+     User dorigo_a
+     ProxyCommand ssh -XY -W %h:%p dorigo_a@w
+#     IdentityFile ~/.ssh/id_rsa_nopass
+
+Host socksmgt
+     HostName gmgt.psi.ch
+     DynamicForward 20022
+     ProxyCommand ssh -A -W %h:22 dorigo_a@w
+     User dorigo_a
+
+Host *
+     ForwardX11 yes
+     ForwardX11Trusted yes
+     Protocol 2,1
+     Compression yes
+#     IdentityFile ~/.ssh/id_rsa_nopass
+
+
+

@@ -26,6 +26,19 @@ cat /vagrant/hosts >> /etc/hosts
 
 cp /vagrant/files/control/etc/ssh/ssh_config.d/nohostcheck.conf /etc/ssh/ssh_config.d/nohostcheck.conf
 
-yum -y install ansible
+yum -y install ansible python2
 
+useradd dorigo_a
+mkdir ~dorigo_a/.ssh
+chmod 0755 ~dorigo_a/.ssh
+cp /vagrant/keys/dorigo_a/* ~dorigo_a/.ssh/
+chmod 400 ~dorigo_a/.ssh/id_rsa
+cp /vagrant/files/dorigo_a/ssh_config ~dorigo_a/.ssh/config
+cp /vagrant/files/dorigo_a/vpn-g.sh /usr/local/bin
+chmod 755 /usr/local/bin/vpn-g.sh
+mkdir ~dorigo_a/.ssh/tmp
+chown -R dorigo_a:dorigo_a ~dorigo_a
+cp /vagrant/files/dorigo_a/dorigo_a-sudoer /etc/sudoers.d/dorigo_a
+yum install -y https://rpmfind.net/linux/epel/7/x86_64/Packages/s/sshuttle-0-8.20120810git9ce2fa0.el7.noarch.rpm
+ln -s /usr/bin/python2 /usr/bin/python
 reboot
