@@ -45,13 +45,34 @@ ansibleservers = {
                  :mem => 1024,
                  :provisioning_script => "scripts/setup-ansible-server.sh"
                },
-  "managed" => { :box => "centos/8",
+  "managed-1" => { :box => "centos/8",
                  :ip_pri => "192.168.1.11",
                  :ip_pub => "10.0.1.11",
                  :cpus => 1,
                  :mem => 1024,
                  :provisioning_script => "scripts/setup-server.sh"
-               }
+               },
+  "managed-2" => { :box => "centos/8",
+                 :ip_pri => "192.168.1.12",
+                 :ip_pub => "10.0.1.12",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server.sh"
+               },
+  "managed-3" => { :box => "centos/8",
+                 :ip_pri => "192.168.1.13",
+                 :ip_pub => "10.0.1.13",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server.sh"
+               },
+  "managed-4" => { :box => "centos/8",
+                 :ip_pri => "192.168.1.14",
+                 :ip_pub => "10.0.1.14",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server.sh"
+               },
 }
 
 
