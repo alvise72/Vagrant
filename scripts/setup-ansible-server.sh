@@ -34,6 +34,10 @@ cp /vagrant/keys/dorigo_a/* ~dorigo_a/.ssh/
 chmod 400 ~dorigo_a/.ssh/id_rsa
 cp /vagrant/files/dorigo_a/ssh_config ~dorigo_a/.ssh/config
 cp /vagrant/files/dorigo_a/vpn-g.sh /usr/local/bin
+cp /vagrant/files/ansible.cfg ~vagrant
+cp /vagrant/files/hosts ~vagrant
+chown vagrant ~vagrant/*
+
 chmod 755 /usr/local/bin/vpn-g.sh
 mkdir ~dorigo_a/.ssh/tmp
 cp /vagrant/files/dorigo_a/dorigo_a-sudoer /etc/sudoers.d/dorigo_a
@@ -45,6 +49,6 @@ pip-3.6 install python-hpilo python-ilorest-library
 
 chown -R dorigo_a:dorigo_a ~dorigo_a
 
-echo "sudo su - dorigo_a" >> ~vagrant/.bash_profile
+#echo "sudo su - dorigo_a" >> ~vagrant/.bash_profile
 
 reboot
