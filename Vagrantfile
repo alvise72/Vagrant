@@ -73,6 +73,26 @@ ansibleservers = {
                  :mem => 1024,
                  :provisioning_script => "scripts/setup-server.sh"
                },
+  "managed-5" => { :box => "ubuntu/trusty64",
+                 :ip_pri => "192.168.1.15",
+                 :ip_pub => "10.0.1.15",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server-ubuntu.sh"
+               },
+  "managed-6" => { :box => "suse/sles11sp3",
+                 :ip_pri => "192.168.1.16",
+                 :ip_pub => "10.0.1.16",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server.sh"
+               },
+  "managed-win" => { :box => "opentable/win-2012r2-standard-amd64-nocm",
+                 :ip_pri => "192.168.1.17",
+                 :ip_pub => "10.0.1.17",
+                 :cpus => 1,
+                 :mem => 2048
+               }
 }
 
 
