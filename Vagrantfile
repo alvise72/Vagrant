@@ -33,7 +33,7 @@ puppetservers = {
                 :ip_pub => "10.0.1.100",
                 :cpus => 1,
                 :mem => 1024,
-                :provisioning_script => "scripts/setup-puppet-server.sh"
+                :provisioning_script => "scripts/do-nothing"
               }
 }
 
@@ -86,12 +86,6 @@ ansibleservers = {
                  :cpus => 1,
                  :mem => 1024,
                  :provisioning_script => "scripts/setup-server.sh"
-               },
-  "managed-win" => { :box => "opentable/win-2012r2-standard-amd64-nocm",
-                 :ip_pri => "192.168.1.17",
-                 :ip_pub => "10.0.1.17",
-                 :cpus => 1,
-                 :mem => 2048
                }
 }
 
