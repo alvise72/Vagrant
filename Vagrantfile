@@ -33,7 +33,7 @@ puppetservers = {
                 :ip_pub => "10.0.1.100",
                 :cpus => 1,
                 :mem => 1024,
-                :provisioning_script => "scripts/setup-puppet-server.sh"
+                :provisioning_script => "scripts/do-nothing"
               }
 }
 
@@ -62,6 +62,27 @@ ansibleservers = {
   "managed-3" => { :box => "centos/8",
                  :ip_pri => "192.168.1.13",
                  :ip_pub => "10.0.1.13",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server.sh"
+               },
+  "managed-4" => { :box => "centos/8",
+                 :ip_pri => "192.168.1.14",
+                 :ip_pub => "10.0.1.14",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server.sh"
+               },
+  "managed-5" => { :box => "ubuntu/trusty64",
+                 :ip_pri => "192.168.1.15",
+                 :ip_pub => "10.0.1.15",
+                 :cpus => 1,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server-ubuntu.sh"
+               },
+  "managed-6" => { :box => "suse/sles11sp3",
+                 :ip_pri => "192.168.1.16",
+                 :ip_pub => "10.0.1.16",
                  :cpus => 1,
                  :mem => 1024,
                  :provisioning_script => "scripts/setup-server.sh"

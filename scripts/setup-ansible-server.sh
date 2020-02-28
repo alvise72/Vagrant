@@ -8,7 +8,7 @@ systemctl enable chronyd
 sed -i 's+^SELINUX=.*+SELINUX=disabled+' /etc/selinux/config
 
 yum -y update
-mkdir /root/.ssh/
+mkdir -p /root/.ssh/
 rsync -avz /vagrant/keys/$HOSTNAME/ /root/.ssh/
 cp /vagrant/keys/authorized_keys /root/.ssh/authorized_keys
 cp /vagrant/keys/known_hosts /root/.ssh/
@@ -28,14 +28,18 @@ cat /vagrant/hosts >> /etc/hosts
 cp /vagrant/files/control/etc/ssh/ssh_config.d/nohostcheck.conf /etc/ssh/ssh_config.d/nohostcheck.conf
 
 useradd dorigo_a
-mkdir ~dorigo_a/.ssh
+mkdir -p ~dorigo_a/.ssh
 chmod 0755 ~dorigo_a/.ssh
 cp /vagrant/keys/dorigo_a/* ~dorigo_a/.ssh/
 chmod 400 ~dorigo_a/.ssh/id_rsa
 cp /vagrant/files/dorigo_a/ssh_config ~dorigo_a/.ssh/config
 cp /vagrant/files/dorigo_a/vpn-g.sh /usr/local/bin
+cp /vagrant/files/ansible.cfg ~vagrant
+cp /vagrant/files/hosts ~vagrant
+chown vagrant ~vagrant/*
+
 chmod 755 /usr/local/bin/vpn-g.sh
-mkdir ~dorigo_a/.ssh/tmp
+mkdir -p ~dorigo_a/.ssh/tmp
 cp /vagrant/files/dorigo_a/dorigo_a-sudoer /etc/sudoers.d/dorigo_a
 mkdir -p ~/dorigo_a/ansible
 cp /vagrant/files/dorigo_a/ansible.cfg /vagrant/files/dorigo_a/hosts ~/dorigo_a/ansible/
@@ -45,6 +49,6 @@ pip-3.6 install python-hpilo python-ilorest-library
 
 chown -R dorigo_a:dorigo_a ~dorigo_a
 
-echo "sudo su - dorigo_a" >> ~vagrant/.bash_profile
+#echo "sudo su - dorigo_a" >> ~vagrant/.bash_profile
 
 reboot
