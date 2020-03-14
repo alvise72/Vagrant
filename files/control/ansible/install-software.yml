@@ -1,0 +1,88 @@
+---
+- name: Install required packages
+  hosts: all
+  remote_user: vagrant
+  tasks:
+
+          - name: Install epel on CentOS
+            package:
+                    name: epel-release
+                    state: latest
+            when: ansible_distribution == 'CentOS'
+
+          - name: Install packages
+            package:
+                    name:
+                            - rsync
+                            - lvm2
+                            - make
+                            - cmake
+                            - net-tools
+                            - sysstat
+                            - dstat
+                            - git
+                            - chrony
+                            - telnet
+                            - mlocate
+                            - lsof
+                            - vim
+                            - gedit
+                            - xauth
+                            - firewalld
+                            - haproxy
+                            - keepalived
+                    state: latest
+
+          - name: Install bind-utils on CentOS
+            package:
+                    name: bind-utils
+                    state: latest
+            when: ansible_distribution == 'CentOS'
+
+          - name: Install apache2 on Ubuntu
+            package:
+                    name: apache2
+                    state: latest
+            when: ansible_distribution == 'Ubuntu'
+
+          - name: Install httpd on CentOS/Suse
+            package:
+                    name: httpd
+                    state: latest
+            when: ansible_distribution != 'Ubuntu'
+
+          - name: Install nedit on all but Suse
+            package:
+                    name: nedit
+                    state: latest
+            when: ansible_distribution != 'openSUSE Leap'
+
+
+          - name: Yum update
+            shell: yum -y update
+#                    update_cache: true
+            when: ansible_distribution == 'CentOS'
+       
+          - name: Apt update
+            shell: apt-get update -y
+#                    update_cache: true
+            when: ansible_distribution == 'Ubuntu'
+
+          - name: Zypper update
+            shell: zypper update -y
+#                    update_cache: true
+            when: ansible_distribution == 'openSUSE Leap'
+
+          - name: Start/Enable services
+            service:
+                    name: '{{ item }}'
+                    state: started
+                    enabled: true
+            loop: '{{ tostart }}'
+
+          - name: Start/Enable haproxy in the proper host
+            service:
+                    name: haproxy
+                    state: started
+                    enabled: true
+...
