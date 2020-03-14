@@ -1,31 +1,31 @@
 ﻿VAGRANTFILE_API_VERSION = "2"
 
-require 'getoptlong'
+#require 'getoptlong'
 
-opts = GetoptLong.new(
-  [ '--storage-path', GetoptLong::OPTIONAL_ARGUMENT ],
-  [ '--memory', GetoptLong::OPTIONAL_ARGUMENT ],
-  [ '--cores', GetoptLong::OPTIONAL_ARGUMENT ],
-  [ '--disk-size', GetoptLong::OPTIONAL_ARGUMENT ]
-)
+#opts = GetoptLong.new(
+#  [ '--storage-path', GetoptLong::OPTIONAL_ARGUMENT ],
+#  [ '--memory', GetoptLong::OPTIONAL_ARGUMENT ],
+#  [ '--cores', GetoptLong::OPTIONAL_ARGUMENT ],
+#  [ '--disk-size', GetoptLong::OPTIONAL_ARGUMENT ]
+#)
 
 storage='/Volumes/Home/Virtual Machines.localized'
 memory=2048
 cores=1
 disksize=100
 
-opts.each do |opt, arg|
-  case opt
-    when '--storage-path'
-      storage=arg
-    when '--memory'
-      memory=arg
-    when '--cores'
-      cores=arg
-    when '--disk-size'
-      disksize=arg
-  end
-end
+#opts.each do |opt, arg|
+#  case opt
+#    when '--storage-path'
+#      storage=arg
+#    when '--memory'
+#      memory=arg
+#    when '--cores'
+#      cores=arg
+#    when '--disk-size'
+#      disksize=arg
+#  end
+#end
 
 puppetservers = {
   "puppet" => { :box => "centos/7",
@@ -80,11 +80,18 @@ ansibleservers = {
                  :mem => 1024,
                  :provisioning_script => "scripts/setup-server-ubuntu.sh"
                },
-  "managed-6" => { :box => "suse/sles11sp3",
+  "managed-6" => { :box => "generic/opensuse42",
                  :ip_pri => "192.168.1.16",
                  :ip_pub => "10.0.1.16",
                  :cpus => 1,
                  :mem => 1024,
+                 :provisioning_script => "scripts/setup-server.sh"
+               },
+  "managed-7" => { :box => "opentable/win-2012r2-standard-amd64-nocm",
+                 :ip_pri => "192.168.1.17",
+                 :ip_pub => "10.0.1.17",
+                 :cpus => 2,
+                 :mem => 4096,
                  :provisioning_script => "scripts/setup-server.sh"
                }
 }

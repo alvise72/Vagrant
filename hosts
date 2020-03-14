@@ -16,6 +16,7 @@
 10.0.1.14 managed-4
 10.0.1.15 managed-5
 10.0.1.16 managed-6
+10.0.1.17 managed-7
 
 192.168.1.100 puppet-adm
 192.168.1.101 elastic-adm
@@ -35,3 +36,4 @@
 192.168.1.14 managed-4-adm
 192.168.1.15 managed-5-adm
 192.168.1.16 managed-6-adm
+192.168.1.17 managed-7-adm

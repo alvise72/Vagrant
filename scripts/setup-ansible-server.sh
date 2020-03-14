@@ -34,9 +34,9 @@ cp /vagrant/keys/dorigo_a/* ~dorigo_a/.ssh/
 chmod 400 ~dorigo_a/.ssh/id_rsa
 cp /vagrant/files/dorigo_a/ssh_config ~dorigo_a/.ssh/config
 cp /vagrant/files/dorigo_a/vpn-g.sh /usr/local/bin
-cp /vagrant/files/ansible.cfg ~vagrant
-cp /vagrant/files/hosts ~vagrant
-chown vagrant ~vagrant/*
+cp -r /vagrant/files/control/ansible ~vagrant
+#cp /vagrant/files/hosts ~vagrant
+chown -R vagrant ~vagrant/*
 
 chmod 755 /usr/local/bin/vpn-g.sh
 mkdir -p ~dorigo_a/.ssh/tmp
