@@ -1,6 +1,6 @@
 ---
 - name: Install required packages
-  hosts: all
+  hosts: linux
   remote_user: vagrant
   tasks:
 
