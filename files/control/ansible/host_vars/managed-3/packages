@@ -1,2 +1,3 @@
 packages:
   - gcc-c++
+  - firewalld

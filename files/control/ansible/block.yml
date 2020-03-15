@@ -1,0 +1,40 @@
+---
+
+- name: Play1
+  hosts: managed-1
+  tasks:
+          - name: block
+            block:
+                    - name: task 1
+                      file:
+                              path: '{{ path }}'
+                              state: directory
+                              owner: root
+                              group: root
+                              mode: 0755
+
+                    - name: task 2
+                      copy:
+                              content: >
+                                      A single 
+                                      line
+                              dest: '{{ path }}/myservice.conf'
+                              owner: root
+                              group: root
+                              mode: 0644
+
+                    - name: task 3
+                      copy:
+                              content: |
+                                     line 1
+                                     line 2 
+                              dest: '{{ path }}/myservice2.conf'
+                              owner: root
+                              group: root
+                              mode: 0644
+
+            rescue:
+                    - name: debug task in rescue
+                      debug:
+                              msg: An error occurred
+...

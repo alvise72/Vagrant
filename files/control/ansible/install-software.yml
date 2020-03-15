@@ -28,7 +28,6 @@
                             - vim
                             - gedit
                             - xauth
-                            - firewalld
                             - haproxy
                             - keepalived
                     state: latest
@@ -57,7 +56,6 @@
                     state: latest
             when: ansible_distribution != 'openSUSE Leap'
 
-
           - name: Yum update
             shell: yum -y update
 #                    update_cache: true
@@ -73,6 +71,16 @@
 #                    update_cache: true
             when: ansible_distribution == 'openSUSE Leap'
 
+          - name: Copy haproxy conf
+            copy:
+                    src: files/haproxy.cfg
+                    dest: /etc/haproxy/
+                    mode: 0644
+                    owner: root
+                    group: root
+
+            when: inventory_hostname == 'managed-1'
+
           - name: Start/Enable services
             service:
                     name: '{{ item }}'
@@ -80,9 +88,11 @@
                     enabled: true
             loop: '{{ tostart }}'
 
-          - name: Start/Enable haproxy in the proper host
-            service:
-                    name: haproxy
-                    state: started
-                    enabled: true
+          - name: Enable connection to port 80
+            firewalld:
+                    state: enabled
+                    immediate: true
+                    permanent: true
+                    service: http
+            when: ansible_distribution != 'openSUSE Leap'
 ...
