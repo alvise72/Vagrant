@@ -1,0 +1,55 @@
+---
+- name: play
+  hosts: managed-2
+  tasks:
+          - name: httpd
+            package:
+                   name:
+                     - httpd
+                     - epel-release
+                     - '*policycoreutil*'
+
+                   state: present
+
+          - name: firewalld stopped
+            service:
+                    name: firewalld
+                    state: stopped
+                    enabled: false
+
+          - name: mkdir '{{wwwdest}}'
+            file:
+                    path: '{{wwwdest}}'
+                    state: directory
+                    owner: root
+                    group: root
+                    mode: 0755
+
+          - name: copy index.html
+            copy:
+                  content: Hey this is a simple page
+                  dest: '{{wwwdest}}/index.html'
+                  mode: 0644
+                  owner: root
+                  group: root
+
+          - name: configure httpd.conf for DocumentRoot='{{wwwdest}}'
+            lineinfile:
+                    regexp: '^DocumentRoot '
+                    line: DocumentRoot "{{wwwdest}}"
+                    path: /etc/httpd/conf/httpd.conf
+            notify: restart http
+
+          - name: set f context
+            sefcontext:
+                    target: '{{ wwwdest }}(/.*)?'
+                    setype: httpd_sys_content_t
+                    state: present
+                    reload: true
+  handlers:
+          - name: restart http
+            service:
+                    name: httpd
+                    state: restarted
+                    enabled: true
+...
