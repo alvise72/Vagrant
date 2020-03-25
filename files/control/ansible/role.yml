@@ -1,0 +1,6 @@
+---
+- name: Testing roles
+  hosts: all
+  roles:
+          - vagrant.motd
+...

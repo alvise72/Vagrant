@@ -1,0 +1,24 @@
+---
+- name: Install WebServer
+  hosts: webservers
+  roles:
+          - vagrant.webserver
+
+- name: Install HAProxy
+  hosts: lb
+  roles:
+          - role: geerlingguy.haproxy
+            haproxy_frontend_name: 'webfe'
+            haproxy_backend_name: 'webbe'
+            haproxy_backend_servers:
+                    - name: Web1
+                      address: 10.0.1.12:80
+                    - name: Web2
+                      address: 10.0.1.13:80
+                    - name: Web3
+                      address: 10.0.1.14:80
+                    - name: Web4
+                      address: 10.0.1.15:80
+                    - name: Web5
+                      address: 10.0.1.16:80
+...

@@ -1,5 +1,8 @@
-[webservers]
+[lb]
 managed-1
+
+[webservers]
+#managed-1
 managed-2
 managed-3
 managed-4
@@ -25,13 +28,3 @@ managed-6
 centos
 ubuntu
 suse
-
-[weservers]
-managed-2
-managed-3
-managed-4
-managed-5
-managed-6
-
-[lb]
-managed-1

@@ -1,0 +1,9 @@
+---
+# tasks file for vagrant.motd
+    - name: Install custom motd
+      template:
+              src: files/motd.j2
+              dest: /etc/motd
+              owner: root
+              group: root
+              mode: 0644

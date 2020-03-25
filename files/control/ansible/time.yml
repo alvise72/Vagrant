@@ -1,0 +1,18 @@
+---
+- name: Configure timesync
+  hosts: webservers
+  roles:
+          - rhel-system-roles.timesync
+
+  post_tasks:
+          - name: Set Timezone
+            timezone:
+                    name: '{{ host_timezone }}'
+            notify: restart crond
+
+  handlers:
+          - name: restart crond
+            service:
+                    name: crond
+                    state: restarted
+...

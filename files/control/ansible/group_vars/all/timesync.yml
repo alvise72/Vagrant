@@ -1,0 +1,25 @@
+host_timezone: 'Europe/Zurich'
+
+timesync_ntp_servers:
+        - hostname: 0.ch.pool.ntp.org
+          minpoll: 2
+          maxpoll: 4
+          iburst: yes
+          pool: false
+        - hostname: 1.ch.pool.ntp.org
+          minpoll: 2
+          maxpoll: 4
+          iburst: yes
+          pool: false
+        - hostname: 2.ch.pool.ntp.org
+          minpoll: 2
+          maxpoll: 4
+          iburst: yes
+          pool: false
+        - hostname: 3.ch.pool.ntp.org
+          minpoll: 2
+          maxpoll: 4
+          iburst: yes
+          pool: false
+
+timesync_ntp_provider: chrony

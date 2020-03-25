@@ -1,0 +1,16 @@
+---
+# defaults file for vagrant.webserver
+webpkg:
+  CentOS:
+    package: httpd
+    service: httpd
+    docroot: /var/www/html/
+  Ubuntu:
+    package: apache2
+    service: apache2
+    docroot: /var/www/html/
+  openSUSE Leap:
+    package: httpd
+    service: apache2
+    docroot: /srv/www/htdocs/
+     
