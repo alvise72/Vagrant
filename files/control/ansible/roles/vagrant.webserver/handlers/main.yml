@@ -1,0 +1,6 @@
+---
+# handlers file for vagrant.webserver
+- name: restart webserver
+  service:
+          name: '{{ webpkg[ansible_distribution].service }}'
+          state: restarted
