@@ -1,0 +1,21 @@
+---
+- name: Set SELinux for custom directory
+  hosts: managed-2
+  #  gather_facts: false
+  vars:
+          selinux_all_purge: true
+          selinux_fcontexts: 
+            - { target: '/www(/.*)?', setype: 'httpd_sys_content_t', ftype: 'a', state: 'present' }
+          selinux_restore_dirs: /www
+
+  roles:
+          - role: rhel-system-roles.selinux
+
+            #  post_tasks:
+            #          - name: Run restorecon recursively
+            #            command:
+            #              argv:
+            #                    - /usr/sbin/restorecon
+            #                    - '-Rv'
+            #                    - /www
+...
