@@ -1,6 +1,6 @@
 yum install -y epel-release
 yum clean all
-yum -y install rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release chrony telnet mlocate lsof bind-utils vim python2 ansible strace tree
+yum -y install rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release chrony telnet mlocate lsof bind-utils vim python2 ansible strace tree rhel-system-roles
 
 systemctl disable firewalld
 systemctl start chronyd

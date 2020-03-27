@@ -1,16 +1,29 @@
 ---
 # defaults file for vagrant.webserver
-webpkg:
+webconf:
   CentOS:
     package: httpd
     service: httpd
-    docroot: /var/www/html/
+    wwwroot: /var/www
+    docroot: '/var/www/html'
+    cgibinroot: '/var/www/cgi-bin'
+    confile: /etc/httpd/conf/httpd.conf
+    src_confile: web-centos.j2
+
   Ubuntu:
     package: apache2
     service: apache2
-    docroot: /var/www/html/
+    wwwroot: /var/www
+    docroot: '/var/www/html'
+    cgibinroot: '/var/www/cgi-bin'
+    confile: /etc/apache2/sites-available/000-default.conf
+    src_confile: web-ubuntu.j2
+
   openSUSE Leap:
     package: httpd
     service: apache2
-    docroot: /srv/www/htdocs/
-     
+    wwwroot: /srv/www
+    docroot: '/srv/www/htdocs'
+    cgibinroot: '/srv/www/cgi-bin'
+    confile: /etc/apache2/default-server.conf 
+    src_confile: web-suse.j2

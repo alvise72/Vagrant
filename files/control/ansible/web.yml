@@ -1,8 +1,40 @@
 ---
 - name: Install WebServer
-  hosts: webservers
+  hosts: webservers,&centos
+
   roles:
           - vagrant.webserver
+
+  post_tasks:
+          - name: Setting selinux context for alternative webroot
+            debug:
+                    msg: Setting selinux context for alternative webroot
+            when: ansible_distribution == 'CentOS'
+
+          - name: block/rescue for selinux enforcing set
+            block:
+                    - include_role:
+                        name: rhel-system-roles.selinux
+                      vars:
+                              selinux_state: enforcing
+                              selinux_policy: targeted
+            rescue:
+                    - name: fail if reboot
+                      fail:
+                      when: not selinux_reboot_required
+
+                    - name: Restart node '{{ ansible_fqdn }}'
+                      reboot:
+            when: ansible_distribution == 'CentOS'
+
+          - include_role:
+              name: rhel-system-roles.selinux
+            vars:
+              selinux_all_purge: true
+              selinux_fcontexts:
+                - { target: '{{ webconf[ansible_distribution].wwwroot }}(/.*)?', setype: 'httpd_sys_content_t', ftype: 'a', state: 'present' }
+              selinux_restore_dirs: '{{ webconf[ansible_distribution].wwwroot }}'
+            when: ansible_distribution == 'CentOS'
 
 - name: Install HAProxy
   hosts: lb

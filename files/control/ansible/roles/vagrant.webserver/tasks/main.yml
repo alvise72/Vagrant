@@ -1,7 +1,7 @@
 ---
 - name: Install apache web server on CentOS/SUSE
   package:
-          name: '{{ webpkg[ansible_distribution].package }}'
+          name: '{{ webconf[ansible_distribution].package }}'
           state: present
 
 - name: Install firewalld
@@ -22,22 +22,34 @@
           permanent: true
           immediate: true
 
-- name: Start/Enable web server on CentOS
-  service:
-          name: '{{ webpkg[ansible_distribution].service }}'
-          state: started
-          enabled: true
+- name: Create directories
+  file:
+          path: '{{ item }}'
+          state: directory
+          mode: 0755
+          group: root
+          owner: root
+  loop:
+          - '{{ webconf[ansible_distribution].wwwroot }}'
+          - '{{ webconf[ansible_distribution].docroot }}'
+          - '{{ webconf[ansible_distribution].cgibinroot }}'
 
-          #- name: Endure directory /var/www/html is there
-          #  file:
-          #          path: /var/www/html
-          #          state: directory
+- name: Install apache configuration file
+  template:
+          src: '{{ webconf[ansible_distribution].src_confile }}'
+          dest: '{{ webconf[ansible_distribution].confile }}'
+  notify: restart webserver
 
-- name: Copy index.html into destination /var/www/html
+- name: Creating remote index.html
   template:
           src: index.j2
-          dest: '{{ webpkg[ansible_distribution].docroot }}/index.html'
+          dest: '{{ webconf[ansible_distribution].docroot }}/index.html'
           mode: 0644
           owner: root
           group: root
-  notify: restart webserver
+
+- name: Start/Enable web server
+  service:
+          name: '{{ webconf[ansible_distribution].service }}'
+          state: started
+          enabled: true
