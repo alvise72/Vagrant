@@ -65,11 +65,25 @@ ansibleservers = {
                  :mem => 1024,
                  :provisioning_script => "scripts/setup-server.sh"
                },
-  "managed-7" => { :box => "opentable/win-2012r2-standard-amd64-nocm",
+  "managed-9" => { :box => "opentable/win-2012r2-standard-amd64-nocm",
+                 :ip_pri => "192.168.1.19",
+                 :ip_pub => "10.0.1.19",
+                 :cpus => 2,
+                 :mem => 4096,
+                 :provisioning_script => "scripts/setup-server.sh"
+               },
+  "managed-7" => { :box => "terrywang/archlinux",
                  :ip_pri => "192.168.1.17",
                  :ip_pub => "10.0.1.17",
                  :cpus => 2,
-                 :mem => 4096,
+                 :mem => 1024,
+                 :provisioning_script => "scripts/setup-server.sh"
+               },
+  "managed-8" => { :box => "generic/gentoo",
+                 :ip_pri => "192.168.1.18",
+                 :ip_pub => "10.0.1.18",
+                 :cpus => 2,
+                 :mem => 1024,
                  :provisioning_script => "scripts/setup-server.sh"
                }
 }
