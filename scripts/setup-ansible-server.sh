@@ -11,6 +11,9 @@ sed -i 's+^SELINUX=.*+SELINUX=disabled+' /etc/selinux/config
 yum -y update
 mkdir -p /root/.ssh/
 rsync -avz /vagrant/keys/$HOSTNAME/ /root/.ssh/
+#mkdir ~vagrant/local/
+#chown vagrant:vagrant ~vagrant/local/
+#rsync -avz /vagrant/files/local ~vagrant/local/
 cp /vagrant/keys/authorized_keys /root/.ssh/authorized_keys
 cp /vagrant/keys/known_hosts /root/.ssh/
 cp /vagrant/keys/vagrant_user/id_rsa* ~vagrant/.ssh/
