@@ -1,1 +1,1 @@
-for i in {1..6} ; do vagrant snapshot restore managed-$i virgin; done
+for i in {1..4} ; do vagrant snapshot restore server$i virgin; done

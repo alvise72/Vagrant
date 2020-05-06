@@ -5,4 +5,4 @@
 # Startup ansible nodes @Home
 # vagrant --storage-path=/Volumes/Home/Virtual\ Machines.localized --cores=1 --memory=2048 up control
 # vagrant --storage-path=/Volumes/Home/Virtual\ Machines.localized --cores=1 --memory=2048 up managed
-for i in control managed-1 managed-2 managed-3 managed-4; do echo $i; done|xargs -n1 -P7 -I{} vagrant up {}
+for i in control server1 server2 server3 server4; do echo $i; done|xargs -n1 -P7 -I{} vagrant up {}

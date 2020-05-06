@@ -1,10 +1,5 @@
 10.0.1.10 control
-10.0.1.11 managed-1
-10.0.1.12 managed-2
-10.0.1.13 managed-3
-10.0.1.14 managed-4
-10.0.1.15 managed-5
-10.0.1.16 managed-6
-10.0.1.17 managed-7
-10.0.1.18 managed-8
-10.0.1.19 managed-9
+10.0.1.11 server1
+10.0.1.12 server2
+10.0.1.13 server3
+10.0.1.14 server4
