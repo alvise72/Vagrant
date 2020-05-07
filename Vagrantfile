@@ -7,11 +7,11 @@ CONTROLLER = ENV.fetch('CONTROLLER', 'IDE Controller')
 #disksize=100
 
 ansibleservers = {
-  "control" => { :box => "centos/8", :ip_pri => "192.168.1.10", :ip_pub => "10.0.1.10", :cpus => 1, :mem => 2048, :provisioning_script => "scripts/setup-ansible-server.sh", :d1 => "#{storage}/control.vdi", :dsize => 1 },
-  "server1" => { :box => "centos/8", :ip_pri => "192.168.1.11", :ip_pub => "10.0.1.11", :cpus => 1, :mem => 1024, :provisioning_script => "scripts/setup-server.sh", :d1 => "#{storage}/server1.vdi", :dsize => 40 },
-  "server2" => { :box => "centos/8", :ip_pri => "192.168.1.12", :ip_pub => "10.0.1.12", :cpus => 1, :mem => 1024, :provisioning_script => "scripts/setup-server.sh", :d1 => "#{storage}/server2.vdi", :dsize => 40 },
-  "server3" => { :box => "centos/8", :ip_pri => "192.168.1.13", :ip_pub => "10.0.1.13", :cpus => 1, :mem => 1024, :provisioning_script => "scripts/setup-server.sh", :d1 => "#{storage}/server3.vdi", :dsize => 40 },
-  "server4" => { :box => "centos/8", :ip_pri => "192.168.1.14", :ip_pub => "10.0.1.14", :cpus => 1, :mem => 1024, :provisioning_script => "scripts/setup-server.sh", :d1 => "#{storage}/server4.vdi", :dsize => 40 }
+  "control" => { :box => "centos/8", :ip_pri => "192.168.1.10", :ip_pub => "10.0.1.10", :cpus => 1, :mem => 2048, :provisioning_script => "scripts/setup-ansible-server.sh", :d1 => "#{storage}/control.vdi", :dsize => 1, :controller => "IDE", :port => 0, :device => 1 },
+  "server1" => { :box => "centos/8", :ip_pri => "192.168.1.11", :ip_pub => "10.0.1.11", :cpus => 1, :mem => 1024, :provisioning_script => "scripts/setup-server.sh", :d1 => "#{storage}/server1.vdi", :dsize => 40, :controller => "IDE", :port => 0, :device => 1 },
+  "server2" => { :box => "centos/8", :ip_pri => "192.168.1.12", :ip_pub => "10.0.1.12", :cpus => 1, :mem => 1024, :provisioning_script => "scripts/setup-server.sh", :d1 => "#{storage}/server2.vdi", :dsize => 40, :controller => "IDE", :port => 0, :device => 1 },
+  "server3" => { :box => "centos/8", :ip_pri => "192.168.1.13", :ip_pub => "10.0.1.13", :cpus => 1, :mem => 1024, :provisioning_script => "scripts/setup-server.sh", :d1 => "#{storage}/server3.vdi", :dsize => 40, :controller => "IDE", :port => 0, :device => 1 },
+  "server4" => { :box => "debian/jessie64", :ip_pri => "192.168.1.14", :ip_pub => "10.0.1.14", :cpus => 1, :mem => 1024, :provisioning_script => "scripts/setup-server.sh", :d1 => "#{storage}/server4.vdi", :dsize => 40, :controller => "SATA Controller", :port => 1, :device => 0 }
 }
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -29,9 +29,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           vb.customize ['createhd', '--filename', info[:d1], '--size', info[:dsize] * 1024]
           vb.customize ['modifyhd', info[:d1], '--type', 'writethrough']
         end
-        vb.customize ['storageattach', :id, '--storagectl', "IDE", '--port', 0, '--device', 1, '--type', 'hdd', '--medium', info[:d1]]
-#        vb.customize ['storageattach', :id, '--storagectl', 'SATA', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', info[:d1]]
-
+#        vb.customize ['storageattach', :id, '--storagectl', info[:controller], '--port', info[:port], '--device', info[:device], '--type', 'hdd', '--medium', info[:d1]]
+        vb.customize ['storageattach', :id, '--storagectl', info[:controller], '--port', info[:port], '--device', info[:device],'--type', 'hdd', '--medium', info[:d1]]
+#
         vb.customize ["modifyvm", :id, "--memory", info[:mem], "--cpus", info[:cpus], "--hwvirtex", "on"]
 	vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
       end # end cfg.vm.provider
