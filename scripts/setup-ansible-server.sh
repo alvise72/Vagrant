@@ -1,5 +1,4 @@
 yum install -y epel-release
-yum clean all
 yum -y install rsync lvm2 gcc-c++ make cmake net-tools sysstat dstat git epel-release chrony telnet mlocate lsof bind-utils vim python2 ansible strace tree rhel-system-roles
 
 systemctl disable firewalld
@@ -9,26 +8,22 @@ systemctl enable chronyd
 sed -i 's+^SELINUX=.*+SELINUX=disabled+' /etc/selinux/config
 
 yum -y update
-mkdir -p /root/.ssh/
-rsync -avz /vagrant/keys/root_user/ /root/.ssh/
-chmod 0400 /root/.ssh/id_dsa
-chmod 0600 /root/.ssh/authorized_keys
-#cat ~vagrant/.ssh/id_rsa.pub >> ~vagrant/.ssh/authorized_keys
-#touch ~vagrant/.ssh/config
-#echo "StrictHostKeyChecking no" >>  ~vagrant/.ssh/config
-#chown -R root:root /root/.ssh/
-chmod 700 /root/.ssh/
-#chmod 0400 /root/.ssh/id_dsa
 
-#chown -R vagrant:vagrant /home/vagrant
+sudo mkdir -p /root/.ssh/
+sudo rsync -avz /vagrant/keys/ /root/.ssh/
+sudo chmod 0400 /root/.ssh/id_rsa
+sudo chmod 0644 /root/.ssh/id_rsa.pub
+sudo chmod 0600 /root/.ssh/authorized_keys
+sudo chown -R root:root /root/.ssh
+sudo chmod 700 /root/.ssh
 
-cat /vagrant/hosts >> /etc/hosts
+sudo cat /vagrant/hosts >> /etc/hosts
+sudo mkdir -p /etc/ssh/ssh_config.d/
+sudo cp /vagrant/files/control/etc/ssh/ssh_config.d/nohostcheck.conf /etc/ssh/ssh_config.d/nohostcheck.conf
+systemctl restart sshd
 
-cp /vagrant/files/control/etc/ssh/ssh_config.d/nohostcheck.conf /etc/ssh/ssh_config.d/nohostcheck.conf
+cp /vagrant/keys/id_rsa ~vagrant/.ssh/
+cp /vagrant/keys/id_rsa.pub ~vagrant/.ssh/
+cat /vagrant/keys/authorized_keys >> ~vagrant/.ssh/authorized_keys
+chown vagrant:vagrant ~vagrant/.ssh/*
 
-#cp -r /vagrant/files/control/ansible ~vagrant
-#chown -R vagrant ~vagrant/*
-
-#yum install -y https://rpmfind.net/linux/epel/7/x86_64/Packages/s/sshuttle-0-8.20120810git9ce2fa0.el7.noarch.rpm
-#ln -s /usr/bin/python2 /usr/bin/python
-#pip-3.6 install python-hpilo python-ilorest-library
